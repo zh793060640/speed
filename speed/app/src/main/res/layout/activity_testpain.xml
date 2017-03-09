@@ -29,4 +29,5 @@
                 android:background="@drawable/turnplate_mask_unlogin_normal" />
         </RelativeLayout>
     </com.zhanghao.speed.speed.widget.CircleMenuLayout>
+
 </LinearLayout>
