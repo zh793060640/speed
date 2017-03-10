@@ -20,7 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        greendao{
+        greendao {
             schemaVersion 1
             targetGenDir 'src/main/java'
         }
@@ -29,11 +29,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':refreshLibrary')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.0'
+   /* compile 'com.android.support:appcompat-v7:25.1.0'*/
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.1.0'
     //dagger2
@@ -56,11 +55,12 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.1.1'
     //网络请求框架
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
     //greeddao 数据库
     compile 'org.greenrobot:greendao:3.0.1'
     compile 'org.greenrobot:greendao-generator:3.0.0'
-
+    compile project(':refreshlibrary')
 }

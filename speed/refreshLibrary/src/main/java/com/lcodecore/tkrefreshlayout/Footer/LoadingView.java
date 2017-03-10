@@ -27,7 +27,6 @@ public class LoadingView extends ImageView implements IBottomView {
 
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         int size = DensityUtil.dp2px(context,34);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size,size);
         params.gravity = Gravity.CENTER;

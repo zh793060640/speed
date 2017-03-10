@@ -1,5 +1,6 @@
 package com.zhanghao.speed.speed.mvp;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Toast;
@@ -7,7 +8,10 @@ import android.widget.Toast;
 import com.jaeger.library.StatusBarUtil;
 import com.zhanghao.speed.speed.R;
 import com.zhanghao.speed.speed.base.BaseActivity;
+import com.zhanghao.speed.speed.dagger.scope.ContextLife;
 import com.zhanghao.speed.speed.widget.CircleMenuLayout;
+
+import javax.inject.Inject;
 
 /**
  * Created by PC on 2017/3/3.
@@ -16,14 +20,17 @@ import com.zhanghao.speed.speed.widget.CircleMenuLayout;
  */
 
 public class TestPaintActivity extends BaseActivity {
+    @Inject
+    @ContextLife("Activity")
+    Context mContext;
     private CircleMenuLayout mCircleMenuLayout;
 
-    private String[] mItemTexts = new String[] { "安全中心 ", "特色服务", "投资理财",
-            "转账汇款", "我的账户", "信用卡" };
-    private int[] mItemImgs = new int[] { R.drawable.home_mbank_1_normal,
+    private String[] mItemTexts = new String[]{"安全中心 ", "特色服务", "投资理财",
+            "转账汇款", "我的账户", "信用卡"};
+    private int[] mItemImgs = new int[]{R.drawable.home_mbank_1_normal,
             R.drawable.home_mbank_2_normal, R.drawable.home_mbank_3_normal,
             R.drawable.home_mbank_4_normal, R.drawable.home_mbank_5_normal,
-            R.drawable.home_mbank_6_normal };
+            R.drawable.home_mbank_6_normal};
 
     @Override
     protected void initData() {
@@ -41,21 +48,17 @@ public class TestPaintActivity extends BaseActivity {
         mCircleMenuLayout.setMenuItemIconsAndTexts(mItemImgs, mItemTexts);
 
 
-
-        mCircleMenuLayout.setOnMenuItemClickListener(new CircleMenuLayout.OnMenuItemClickListener()
-        {
+        mCircleMenuLayout.setOnMenuItemClickListener(new CircleMenuLayout.OnMenuItemClickListener() {
 
             @Override
-            public void itemClick(View view, int pos)
-            {
+            public void itemClick(View view, int pos) {
                 Toast.makeText(TestPaintActivity.this, mItemTexts[pos],
                         Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void itemCenterClick(View view)
-            {
+            public void itemCenterClick(View view) {
                 Toast.makeText(TestPaintActivity.this,
                         "you can do something just like ccb  ",
                         Toast.LENGTH_SHORT).show();

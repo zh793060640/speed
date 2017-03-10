@@ -1,18 +1,17 @@
 package com.zhanghao.speed.speed.mvp.view.me;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.zhanghao.speed.speed.R;
-import com.zhanghao.speed.speed.base.BaseFragment;
-import com.zhanghao.speed.speed.mvp.TestPaintActivity;
+import com.zhanghao.speed.speed.base.BaseListFragment;
+import com.zhanghao.speed.speed.base.baservadapter.CommonAdapter;
+import com.zhanghao.speed.speed.base.baservadapter.ViewHolder;
 import com.zhanghao.speed.speed.mvp.presenter.MeFragmentPresenterImpl;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+import javax.inject.Inject;
 
 /**
  * Created by PC on 2017/3/6.
@@ -20,25 +19,43 @@ import butterknife.OnClick;
  * 作用：
  */
 
-public class MeFragment extends BaseFragment implements MeFragmentView {
+public class MeFragment extends BaseListFragment implements MeFragmentView {
 
-    @BindView(R.id.tvCicleMenu)
-    TextView mTvCicleMenu;
-    @BindView(R.id.tvNineGridView)
-    TextView mTvNineGridView;
+    private List<String> data = new ArrayList<>();
     @Inject
     public MeFragmentPresenterImpl mPresenter;
 
 
     @Override
-    public int getLayoutRes() {
-        return R.layout.mefragment;
+    public void initViews() {
+        super.initViews();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mRefreshLayout.setOverScrollBottomShow(false);
+
+        for (int i = 0; i < 30; i++) {
+            data.add("zhanghao" + i);
+        }
+
+        mRecyclerView.setAdapter(new CommonAdapter<String>(mActivity, R.layout.item_rv, data) {
+
+            @Override
+            protected void convert(ViewHolder holder, String s, int position) {
+                holder.setText(R.id.tv_item, s);
+            }
+        });
+
     }
 
     @Override
-    public void initViews() {
+    public void refresh() {
 
     }
+
+    @Override
+    public void loadMore() {
+
+    }
+
 
     @Override
     public void initData() {
@@ -58,14 +75,14 @@ public class MeFragment extends BaseFragment implements MeFragmentView {
     }
 
 
-    @OnClick({R.id.tvCicleMenu, R.id.tvNineGridView})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tvCicleMenu:
-                startActivity(new Intent(mActivity, TestPaintActivity.class));
-                break;
-            case R.id.tvNineGridView:
-                break;
-        }
-    }
+//    @OnClick({R.id.tvCicleMenu, R.id.tvNineGridView})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.tvCicleMenu:
+//                startActivity(new Intent(mActivity, TestPaintActivity.class));
+//                break;
+//            case R.id.tvNineGridView:
+//                break;
+//        }
+//    }
 }

@@ -1,6 +1,5 @@
 package com.zhanghao.speed.speed.dagger.component;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.zhanghao.speed.speed.FastApplication;
@@ -22,7 +21,7 @@ public interface ApplicationComponent {
     @ContextLife()
     Context getContext();
 
-    Application getApplication();
+    FastApplication getApplication();
 
     void inject(FastApplication fastApplication);
 }

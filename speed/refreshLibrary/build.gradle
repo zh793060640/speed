@@ -10,14 +10,12 @@ publish{
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 5
-        versionName "1.05"
+        minSdkVersion 15
+        targetSdkVersion 25
     }
     buildTypes {
         release {
@@ -34,6 +32,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.wang.avi:library:1.0.1'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }

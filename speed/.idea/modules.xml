@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/refreshLibrary/refreshLibrary.iml" filepath="$PROJECT_DIR$/refreshLibrary/refreshLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" filepath="$PROJECT_DIR$/refreshlibrary/refreshlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/speed.iml" filepath="$PROJECT_DIR$/speed.iml" />
     </modules>
   </component>
