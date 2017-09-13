@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply from: 'tinker-support.gradle'
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    signingConfigs {
+        releaseConfig {
+            try {
+                keyAlias 'classcard'
+                keyPassword 'classcard2017'
+                storeFile file('ClassCard.jks')
+                storePassword 'classcard2017'
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.leeone.classcard"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField 'String', 'SERVER_ADDRESS', project.properties['RELEASE_SERVER']
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.releaseConfig
+            buildConfigField 'String', 'SERVER_ADDRESS', project.properties['DEBUG_SERVER']
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    "电子班牌_v${defaultConfig.versionName}_${releaseTime()}.apk")
+            if (output.zipAlign != null) {
+                output.zipAlign.doLast {
+                    output.zipAlign.inputFile.delete()
+                }
+            }
+        }
+    }
+
+//    productFlavors {
+//        正式版 {
+//            buildConfigField 'String', 'SERVER_ADDRESS', project.properties['RELEASE_SERVER']
+//        }
+//        测试版 {
+//            buildConfigField 'String', 'SERVER_ADDRESS', project.properties['DEBUG_SERVER']
+//        }
+//    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(':core')
+    compile project(':dialog')
+    compile project(':PushSDK')
+    testCompile 'junit:junit:4.12'
+}
