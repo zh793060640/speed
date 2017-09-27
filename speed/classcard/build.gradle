@@ -18,7 +18,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.leeone.classcard"
+        applicationId "com.zhanghao.speed"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -47,11 +47,15 @@ android {
             buildConfigField 'String', 'SERVER_ADDRESS', project.properties['DEBUG_SERVER']
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
                     output.outputFile.parent,
-                    "电子班牌_v${defaultConfig.versionName}_${releaseTime()}.apk")
+                    "spped_v${defaultConfig.versionName}_${releaseTime()}.apk")
             if (output.zipAlign != null) {
                 output.zipAlign.doLast {
                     output.zipAlign.inputFile.delete()

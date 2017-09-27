@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'android-apt'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -40,7 +40,22 @@ dependencies {
     compile 'com.android.support:multidex:latest.release'
     //bugly
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    compile 'com.github.lzyzsd:jsbridge:1.0.4'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    //刷新控件
+    compile 'com.zhy:base-rvadapter:3.0.3'
+    //通用的recycleviewadapter
+    compile 'com.zhy:base-adapter:3.0.3'
+    //通用的listviewadapter
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'id.zelory:compressor:2.1.0'
+    //图片压缩
+    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    //图片选择器
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    //手势控制的imageview
     testCompile 'junit:junit:4.12'
     compile files('libs/zbar.jar')
+    compile files('libs/alipaySdk-20170922.jar')
+    compile files('libs/libammsdk.jar')
 }

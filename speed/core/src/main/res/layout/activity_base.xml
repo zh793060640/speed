@@ -5,10 +5,10 @@
     android:orientation="vertical"
     >
 
-    <com.leeone.core.base.MyTitleBar
+    <com.zhanghao.core.base.MyTitleBar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
-        android:layout_height="44dp"></com.leeone.core.base.MyTitleBar>
+        android:layout_height="44dp"></com.zhanghao.core.base.MyTitleBar>
 
     <FrameLayout
         android:id="@+id/flContent"

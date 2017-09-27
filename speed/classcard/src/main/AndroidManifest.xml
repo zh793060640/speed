@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.leeone.classcard">
+    package="com.zhanghao.speed">
    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <application
-        android:name=".ClassCardApplication"
+        android:name="com.zhanghao.speed.ClassCardApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.zhanghao.speed.MainActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -24,15 +24,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name="com.leeone.core.zbar.ZbarActivity"></activity>
-
-        <receiver android:name=".BootBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-                <category android:name="android.intent.category.HOME" />
-            </intent-filter>
-        </receiver>
+        <activity android:name="com.zhanghao.core.zbar.ZbarActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -52,7 +44,7 @@
             android:value="cb27ca953dda598ce22496a2aefbdcae" />
 
         <receiver
-            android:name=".receiver.UmengStatusReceiver"
+            android:name="com.zhanghao.speed.receiver.UmengStatusReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -60,10 +52,21 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".TestActivity">
-
-
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
     </application>
 
 </manifest>
