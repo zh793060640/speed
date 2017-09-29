@@ -5,16 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.support.multidex.MultiDex;
-import android.widget.Toast;
 
 import com.hss01248.dialog.StyledDialog;
-import com.zhanghao.speed.receiver.UmengStatusReceiver;
-import com.zhanghao.core.api.RetrofitClient;
-import com.zhanghao.core.utils.AppManager;
-import com.zhanghao.core.utils.GlideImageLoader;
-import com.zhanghao.core.utils.LogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -27,20 +20,17 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
-import com.umeng.message.IUmengRegisterCallback;
-import com.umeng.message.PushAgent;
-import com.umeng.message.UTrack;
-import com.umeng.message.UmengMessageHandler;
-import com.umeng.message.UmengNotificationClickHandler;
-import com.umeng.message.entity.UMessage;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.zhanghao.core.api.RetrofitClient;
+import com.zhanghao.core.utils.AppManager;
+import com.zhanghao.core.utils.GlideImageLoader;
 
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.ThemeConfig;
-
-import static android.os.Looper.getMainLooper;
 
 /**
  * 作者： zhanghao on 2017/7/26.
@@ -80,8 +70,16 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         RetrofitClient.init(BuildConfig.SERVER_ADDRESS);
         initPushSDK();
         initPhotoSelete();
+        initShare();
     }
 
+    public void initShare(){
+        UMShareAPI.get(getApplication());
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        //豆瓣RENREN平台目前只能在服务器端配置
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+    }
     private void initPushSDK() {
         PushAgent mPushAgent = PushAgent.getInstance(getApplication());
 //注册推送服务，每次调用register方法都会回调该接口

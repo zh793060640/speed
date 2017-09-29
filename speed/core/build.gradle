@@ -53,9 +53,12 @@ dependencies {
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
     //图片选择器
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.android.support:design:25.3.1'
     //手势控制的imageview
     testCompile 'junit:junit:4.12'
-    compile files('libs/zbar.jar')
-    compile files('libs/alipaySdk-20170922.jar')
-    compile files('libs/libammsdk.jar')
+    //    compile files('libs/zbar.jar')
+    //    compile files('libs/alipaySdk-20170922.jar')
+    //    compile files('libs/libammsdk.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/umeng_social_api.jar')
 }

@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.utils.GalleryFinalUtils;
+import com.zhanghao.core.utils.LogUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         myTitleBar.setTitle("测试");
         recyclerView = findView(R.id.recyclerView);
         smartRefreshLayout = findView(R.id.smartRefreshLayout);
+        LogUtils.e("threadnum",Thread.activeCount()+"");
+       mPresenter.checkRegister("111111");
         List<String> data = new ArrayList<>();
         data.add("图片选择");
         data.add("二维码");

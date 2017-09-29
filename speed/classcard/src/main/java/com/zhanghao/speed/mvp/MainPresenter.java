@@ -27,12 +27,18 @@ public class MainPresenter extends MainContract.Presenter {
 
             @Override
             public void on_Next(RegisterInfo registerInfo) {
-
+                LogUtils.e("threadnum",Thread.activeCount()+"");
             }
 
             @Override
             public void on_Errort(Throwable e) {
                 LogUtils.e(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                LogUtils.e("threadnum",Thread.activeCount()+"");
             }
         });
     }

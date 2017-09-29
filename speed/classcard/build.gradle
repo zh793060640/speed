@@ -85,6 +85,7 @@ dependencies {
     })
     compile project(':core')
     compile project(':dialog')
-    compile project(':PushSDK')
+    //    compile project(':PushSDK')
     testCompile 'junit:junit:4.12'
+    compile project(':PushSDK')
 }

@@ -9,6 +9,7 @@ import com.umeng.message.UTrack;
 import com.umeng.message.common.inter.ITagManager;
 import com.umeng.message.tag.TagManager;
 
+
 /**
  * 作者： zhanghao on 2017/8/3.
  * 功能：${des}
@@ -31,7 +32,6 @@ public class UmengStatusReceiver extends BroadcastReceiver {
         if (isAddAlias && enable) {
             try {
                 alias = "userId";
-                //设置用户别名
                 mPushAgent.addExclusiveAlias(alias, "LeeoneAlias", new UTrack.ICallBack() {
                     @Override
                     public void onMessage(boolean b, String s) {
