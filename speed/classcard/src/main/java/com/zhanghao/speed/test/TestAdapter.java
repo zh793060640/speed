@@ -1,7 +1,8 @@
-package com.zhanghao.speed;
+package com.zhanghao.speed.test;
 
 import android.content.Context;
 
+import com.zhanghao.speed.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

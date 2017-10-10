@@ -13,12 +13,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.zhanghao.core.base.BaseActivity;
+import com.zhanghao.core.base.BaseWebActivity;
 import com.zhanghao.core.utils.GalleryFinalUtils;
-import com.zhanghao.core.utils.LogUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
+import com.zhanghao.speed.test.CoordinatorLayoutActivity;
+import com.zhanghao.speed.test.TestAdapter;
+import com.zhanghao.speed.test.TransationActivity;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
         super.onCreate(savedInstanceState);
     }
 
@@ -48,11 +52,13 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         myTitleBar.setTitle("测试");
         recyclerView = findView(R.id.recyclerView);
         smartRefreshLayout = findView(R.id.smartRefreshLayout);
-        LogUtils.e("threadnum",Thread.activeCount()+"");
-       mPresenter.checkRegister("111111");
         List<String> data = new ArrayList<>();
         data.add("图片选择");
         data.add("二维码");
+        data.add("5.0转场动画");
+        data.add("仿微信图片查看");
+        data.add("x5webview");
+        data.add("CoordinatorLayout");
         smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(final RefreshLayout refreshlayout) {
@@ -90,12 +96,17 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         startActivity(intent);
                         break;
                     case 2:
+                       //startActivity(new Intent(activity, TransationActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                        startActivity(new Intent(activity, TransationActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(activity, TransationActivity.class));
                         break;
                     case 4:
+                        startActivity(new Intent(activity, BaseWebActivity.class));
                         break;
                     case 5:
+                        startActivity(new Intent(activity, CoordinatorLayoutActivity.class));
                         break;
                 }
             }

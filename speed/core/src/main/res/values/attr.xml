@@ -64,4 +64,12 @@
         <!-- 是否只识别扫描框区域的二维码，默认值为false -->
         <attr name="qrcv_isOnlyDecodeScanBoxArea" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="BezierBannerView">
+        <attr name="selectedColor" format="color"/>
+        <attr name="unSelectedColor" format="color"/>
+        <attr name="selectedRaduis" format="dimension"/>
+        <attr name="unSelectedRaduis" format="dimension"/>
+        <attr name="spacing" format="dimension"/>
+    </declare-styleable>
 </resources>

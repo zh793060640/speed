@@ -12,7 +12,10 @@ import android.widget.FrameLayout;
 
 import com.zhanghao.core.R;
 import com.zhanghao.core.base.baserx.TUtil;
+import com.zhanghao.core.shortcutbadger.ShortcutBadger;
+import com.zhanghao.core.ui.EmptyLayout;
 import com.zhanghao.core.utils.AppManager;
+import com.zhanghao.core.utils.Utils;
 
 import butterknife.ButterKnife;
 
@@ -34,6 +37,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
     private ActivityManager activityManager;
     public MyTitleBar myTitleBar;
     private FrameLayout flContentl;
+    private EmptyLayout emptyLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
         setContentView(R.layout.activity_base);
         myTitleBar = (MyTitleBar) findViewById(R.id.titlebar);
         flContentl = (FrameLayout) findViewById(R.id.flContent);
+        emptyLayout = findView(R.id.emptyLayout);
         if (getContentView() != 0) {
             View content = LayoutInflater.from(this).inflate(getContentView(), null);
             flContentl.removeAllViews();
@@ -104,4 +109,18 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
         return (T) findViewById(id);
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //设置app图标的红点提醒数量
+        if (!Utils.isAppRunningForeground(activity)) {
+            int num = 0;
+            if (num > 0) {
+                ShortcutBadger.applyCount(activity, num);
+            } else {
+                ShortcutBadger.removeCount(activity);
+            }
+        }
+    }
 }

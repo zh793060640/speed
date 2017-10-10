@@ -5,7 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.multidex.MultiDex;
+import android.widget.Toast;
 
 import com.hss01248.dialog.StyledDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,17 +22,30 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.zhanghao.core.api.RetrofitClient;
+import com.zhanghao.core.imagepreview.ZoomMediaLoader;
 import com.zhanghao.core.utils.AppManager;
 import com.zhanghao.core.utils.GlideImageLoader;
+import com.zhanghao.core.utils.LogUtils;
+import com.zhanghao.core.utils.Utils;
+import com.zhanghao.speed.receiver.UmengStatusReceiver;
+import com.zhanghao.speed.test.TestImageLoader;
 
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.ThemeConfig;
+
+import static android.os.Looper.getMainLooper;
 
 /**
  * 作者： zhanghao on 2017/7/26.
@@ -66,11 +81,13 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         Bugly.init(getApplication(), "2fd77717a9", true);
         AppManager.I().init(getApplication());
+        Utils.init(getApplication());
         StyledDialog.init(getApplication());
         RetrofitClient.init(BuildConfig.SERVER_ADDRESS);
         initPushSDK();
         initPhotoSelete();
         initShare();
+        ZoomMediaLoader.getInstance().init(new TestImageLoader());
     }
 
     public void initShare(){

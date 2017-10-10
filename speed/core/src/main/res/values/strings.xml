@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ClassCard</string>
+    <string name="zone_img_position">circle_img_position</string>
+    <dimen name="yms_dimens_50.0_px">25.0dp</dimen>
 </resources>
