@@ -1,5 +1,7 @@
 package com.zhanghao.core.base;
 
+import com.zhanghao.core.utils.LogUtils;
+
 import io.reactivex.Observer;
 
 /**
@@ -16,6 +18,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        LogUtils.e(e.getMessage());
         on_Errort(e);
     }
 

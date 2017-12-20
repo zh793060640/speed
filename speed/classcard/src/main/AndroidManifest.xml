@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zhanghao.speed">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
-        android:name="com.zhanghao.speed.ClassCardApplication"
+        android:name=".ClassCardApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
-            android:name="com.zhanghao.speed.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -23,21 +26,16 @@
         </activity>
         <activity
             android:name=".test.TransationActivity"
-            android:configChanges="orientation|screenSize|layoutDirection"></activity>
-
-        <activity android:name="com.zhanghao.core.imagepreview.GPreviewActivity">
-
-        </activity>
-        <activity android:name=".test.CoordinatorLayoutActivity">
-        </activity>
-
-
-        <activity android:name="com.zhanghao.core.base.BaseWebActivity"></activity>
+            android:configChanges="orientation|screenSize|layoutDirection" />
+        <activity android:name="com.zhanghao.core.imagepreview.PhtotoActivity" />
+        <activity android:name=".test.CoordinatorLayoutActivity" />
+        <activity android:name="mabeijianxi.camera.MediaRecorderActivity" />
+        <activity android:name="com.zhanghao.core.base.BaseWebActivity" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name="com.zhanghao.core.zbar.ZbarActivity"></activity>
+        <activity android:name="com.zhanghao.core.zbar.ZbarActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -57,7 +55,7 @@
             android:value="cb27ca953dda598ce22496a2aefbdcae" />
 
         <receiver
-            android:name="com.zhanghao.speed.receiver.UmengStatusReceiver"
+            android:name=".receiver.UmengStatusReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -70,14 +68,16 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".test.StickActivity" />
+        <activity android:name=".test.DragSortActivity" />
+        <activity android:name=".test.VideoActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.zhanghao.core.base;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,16 +18,15 @@ import com.zhanghao.core.ui.EmptyLayout;
 import com.zhanghao.core.utils.AppManager;
 import com.zhanghao.core.utils.Utils;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
-/*************************************************************************************************
- * 作   者： 高永好
- * 完成日期：2017-04-20 09:52
- * 说明：
- ************************************************************************************************/
 
-public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle> extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     protected FragmentManager fm;
     public T mPresenter;
@@ -38,6 +38,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
     public MyTitleBar myTitleBar;
     private FrameLayout flContentl;
     private EmptyLayout emptyLayout;
+    private SweetAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,10 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
 
         activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         extraIntent = getIntent();
+        mDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        mDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+
+        mDialog.setCancelable(false);
         //理论上应该放在launcher activity,放在基类中所有集成此库的app都可以避免此问题
         if (!isTaskRoot()) {
             String action = extraIntent.getAction();
@@ -122,5 +127,39 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
                 ShortcutBadger.removeCount(activity);
             }
         }
+    }
+
+    public void showLoadingDialog() {
+        mDialog.setTitleText("Loading");
+        mDialog.show();
+    }
+
+    public void showDialog(String title) {
+        mDialog.setTitleText(title);
+        mDialog.show();
+    }
+
+    public void dissmissDialog() {
+        mDialog.dismiss();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+        // Some permissions have been granted
+        // ...
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
+        // Some permissions have been denied
+        // ...
     }
 }

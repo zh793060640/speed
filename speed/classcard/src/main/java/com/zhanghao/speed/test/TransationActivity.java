@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
+import com.previewlibrary.enitity.ThumbViewInfo;
 import com.zhanghao.core.base.BaseActivity;
-import com.zhanghao.core.imagepreview.ThumbViewInfo;
 import com.zhanghao.speed.R;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;

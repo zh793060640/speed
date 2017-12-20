@@ -1,11 +1,11 @@
 package com.zhanghao.core.utils;
 
-import android.graphics.Bitmap;
 
 import java.io.File;
-import java.io.IOException;
 
-import id.zelory.compressor.Compressor;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+
 
 /**
  * 作者： zhanghao on 2017/9/27.
@@ -13,27 +13,36 @@ import id.zelory.compressor.Compressor;
  */
 
 public class CompressorUtils {
-    public static File CompressorImage(String filePath, String actualImage) {
-        File result = null;
-        try {
-            if (actualImage != null) {
-                result = new Compressor(AppManager.I().currentActivity())
-                        .setMaxWidth(640)
-                        .setMaxHeight(480)
-                        .setQuality(75)
-                        .setCompressFormat(Bitmap.CompressFormat.WEBP)
-                        .setDestinationDirectoryPath(actualImage)
-                        .compressToFile(new File(filePath));
-            }
-            result = new Compressor(AppManager.I().currentActivity())
-                    .setMaxWidth(640)
-                    .setMaxHeight(480)
-                    .setQuality(75)
-                    .setCompressFormat(Bitmap.CompressFormat.WEBP)
-                    .compressToFile(new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+    public static void CompressorImage(final String filePath, final CompressorListener listener) {
+        Luban.with(AppManager.I().getApplicationContext())
+                .load(filePath)                                   // 传人要压缩的图片列表
+                .ignoreBy(100)                                  // 忽略不压缩图片的大小
+                //   .setTargetDir(getPath())                        // 设置压缩后文件存储位置
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        if (listener != null) {
+                            listener.result(file);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (listener != null) {
+                            listener.result(new File(filePath));
+                        }
+                    }
+                }).launch();    //启动压缩
     }
+
+
+    public interface CompressorListener {
+        void result(File file);
+    }
+
+
 }

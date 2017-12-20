@@ -1,7 +1,7 @@
 package com.zhanghao.speed.test;
 
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 
@@ -43,13 +43,25 @@ public class TestFragment extends BaseFragment<BasePresenter, BaseModle> {
         recyclerView = findView(R.id.recyclerView);
         smartRefreshLayout = findView(R.id.smartRefreshLayout);
         recyclerView.addItemDecoration(new DividerItemDecoration(activity, LinearLayout.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        // recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+        GridLayoutManager manager = new GridLayoutManager(activity, 2);
+        recyclerView.setLayoutManager(manager);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position % 10 == 0) {
+                    return 2;
+                }
+                return 1;
+            }
+        });
         List<String> data = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             data.add("fragment_test" + i);
         }
 
-        TestAdapter adapter = new TestAdapter(activity, R.layout.item_test, data);
+        TestAdapter adapter = new TestAdapter(activity, data);
         recyclerView.setAdapter(adapter);
     }
 }

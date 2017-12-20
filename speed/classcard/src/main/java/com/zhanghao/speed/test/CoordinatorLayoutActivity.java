@@ -71,7 +71,6 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 TextView viewById = (TextView) tab.getCustomView().findViewById(R.id.tvName);
-                viewById.setTextColor(getResources().getColor(R.color.bg_white));
             }
 
             @Override

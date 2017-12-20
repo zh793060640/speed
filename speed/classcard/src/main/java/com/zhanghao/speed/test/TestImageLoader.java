@@ -9,8 +9,8 @@ import android.support.v4.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.zhanghao.core.imagepreview.IZoomMediaLoader;
-import com.zhanghao.core.imagepreview.MySimpleTarget;
+import com.previewlibrary.loader.IZoomMediaLoader;
+import com.previewlibrary.loader.MySimpleTarget;
 import com.zhanghao.speed.R;
 
 /**

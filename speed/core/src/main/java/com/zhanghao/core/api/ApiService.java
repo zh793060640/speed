@@ -1,27 +1,38 @@
 package com.zhanghao.core.api;
 
-import com.zhanghao.core.ChildInfo;
-import com.zhanghao.core.base.BaseRespose;
-import com.zhanghao.core.bean.RegisterInfo;
+import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 
 /**
  * 作者： zhanghao on 2017/7/12.
  * 功能：${des}
  */
 
+//@FormUrlEncoded  post请求  参数用@Field
+//@Multipart 上传图片
 public interface ApiService {
 
-    @FormUrlEncoded
-    @POST("/Api/User/returnChildInfo")
-    Observable<BaseRespose<ChildInfo>> getChildInfo (@Field("studentId") String studentId);
 
+    //上传单张图片
+    @Multipart
+    @POST(ApiConstants.uploadImage)
+    Observable<ImageBean> uploadPhoto(@PartMap Map<String, RequestBody> params);
 
     @FormUrlEncoded
-    @POST("/Api/ClassBrand/getClassIdByBrandDevice")
-    Observable<BaseRespose<RegisterInfo>> getRegisterStatus (@Field("brandDeviceId") String brandDeviceId);
+    @POST(ApiConstants.getUserInfo)
+    @Headers(ApiConstants.CacheControl)
+    Observable<ResponseBody> getInfo(@Field(ApiConstants.userId) String userId);
+
+    @FormUrlEncoded
+    @POST(ApiConstants.getUserInfo)
+    Observable<ResponseBody> getVipInfo(@Field(ApiConstants.userId) String userId);
 }

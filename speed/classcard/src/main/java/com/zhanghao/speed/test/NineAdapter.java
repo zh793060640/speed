@@ -6,9 +6,8 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.zhanghao.core.imagepreview.GPreviewBuilder;
-import com.zhanghao.core.imagepreview.ThumbViewInfo;
+import com.previewlibrary.GPreviewBuilder;
+import com.previewlibrary.enitity.ThumbViewInfo;
 import com.zhanghao.core.ui.MultiImageView;
 import com.zhanghao.speed.R;
 import com.zhy.adapter.recyclerview.CommonAdapter;

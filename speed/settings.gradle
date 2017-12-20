@@ -1,1 +1,1 @@
-include ':core', ':dialog', ':classcard', ':PushSDK'
+include ':core', ':classcard'

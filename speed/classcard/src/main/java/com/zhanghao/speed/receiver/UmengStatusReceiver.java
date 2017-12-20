@@ -4,11 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.umeng.message.PushAgent;
-import com.umeng.message.UTrack;
-import com.umeng.message.common.inter.ITagManager;
-import com.umeng.message.tag.TagManager;
-
 
 /**
  * 作者： zhanghao on 2017/8/3.
@@ -28,35 +23,35 @@ public class UmengStatusReceiver extends BroadcastReceiver {
         boolean isAddAlias = intent.getBooleanExtra(ISADDALIAS, false);
 
         enable = intent.getBooleanExtra(ENABLE, false);
-        final PushAgent mPushAgent = PushAgent.getInstance(context);
-        if (isAddAlias && enable) {
-            try {
-                alias = "userId";
-                mPushAgent.addExclusiveAlias(alias, "LeeoneAlias", new UTrack.ICallBack() {
-                    @Override
-                    public void onMessage(boolean b, String s) {
-
-                        //设置用户标签
-                        mPushAgent.getTagManager().add(new TagManager.TCallBack() {
-                            @Override
-                            public void onMessage(boolean b, ITagManager.Result result) {
-
-                            }
-                        }, "classCard");
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else if (!isAddAlias) {
-            if (alias == null) return;
-            mPushAgent.removeAlias(alias, "LeeoneAlias", new UTrack.ICallBack() {
-                @Override
-                public void onMessage(boolean b, String s) {
-
-                }
-            });
-        }
+//        final PushAgent mPushAgent = PushAgent.getInstance(context);
+//        if (isAddAlias && enable) {
+//            try {
+//                alias = "userId";
+//                mPushAgent.addExclusiveAlias(alias, "LeeoneAlias", new UTrack.ICallBack() {
+//                    @Override
+//                    public void onMessage(boolean b, String s) {
+//
+//                        //设置用户标签
+//                        mPushAgent.getTagManager().add(new TagManager.TCallBack() {
+//                            @Override
+//                            public void onMessage(boolean b, ITagManager.Result result) {
+//
+//                            }
+//                        }, "classCard");
+//                    }
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        } else if (!isAddAlias) {
+//            if (alias == null) return;
+//            mPushAgent.removeAlias(alias, "LeeoneAlias", new UTrack.ICallBack() {
+//                @Override
+//                public void onMessage(boolean b, String s) {
+//
+//                }
+//            });
+//        }
     }
 }

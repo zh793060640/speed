@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.ycjiang:imgepreviewlibrary-1.1.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/3f1c462e76fe9e89f9509cb39eca8428d4b3fae1/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/3f1c462e76fe9e89f9509cb39eca8428d4b3fae1/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ycjiang/imgepreviewlibrary/1.1.1/68885b188e606a4385088195255774393dbaffe7/imgepreviewlibrary-1.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

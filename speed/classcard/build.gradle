@@ -21,13 +21,14 @@ android {
         applicationId "com.zhanghao.speed"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCode1()
+        versionName getVersionName1()
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
 
+    flavorDimensions "channel"  //适配安卓studio3.0
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
@@ -51,11 +52,21 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+//    applicationVariants.all { variant ->
+//        variant.outputs.all { output ->
+//            outputFileName = "speed${releaseTime()}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk"
+//            if (output.zipAlign != null) {
+//                output.zipAlign.doLast {
+//                    output.zipAlign.inputFile.delete()
+//                }
+//            }
+//        }
+//    }
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
                     output.outputFile.parent,
-                    "spped_v${defaultConfig.versionName}_${releaseTime()}.apk")
+                    "speed${defaultConfig.versionName}_${defaultConfig.versionCode}_${releaseTime()}.apk")
             if (output.zipAlign != null) {
                 output.zipAlign.doLast {
                     output.zipAlign.inputFile.delete()
@@ -63,7 +74,6 @@ android {
             }
         }
     }
-
 //    productFlavors {
 //        正式版 {
 //            buildConfigField 'String', 'SERVER_ADDRESS', project.properties['RELEASE_SERVER']
@@ -74,18 +84,45 @@ android {
 //    }
 }
 
+def getVersionCode1() {
+    def versionFile = file('../version.properties')
+    if (versionFile.canRead()) {
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def runTasks = gradle.startParameter.taskNames        //仅在assembleRelease任务是增加版本号
+        if ('assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
+def getVersionName1() {
+    def versionFile = file('../version.properties')
+    if (versionFile.canRead()) {
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionName = versionProps['VERSION_NAME']
+        return versionName
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':core')
-    compile project(':dialog')
-    //    compile project(':PushSDK')
     testCompile 'junit:junit:4.12'
-    compile project(':PushSDK')
 }

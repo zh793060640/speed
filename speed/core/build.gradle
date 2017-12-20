@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'android-apt'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -16,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    greendao {
+        schemaVersion 4
+        daoPackage 'com.zhanghao.core.gen'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
@@ -27,6 +34,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxjavaVersion"
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.rxjava2Adapter"
+
     // 大神写的这个库可以支持到rxjava2.X
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.converterGson"
@@ -36,30 +44,62 @@ dependencies {
     compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "com.youth.banner:banner:$rootProject.banner"
+
     //multiDex
     compile 'com.android.support:multidex:latest.release'
+
     //bugly
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
     //刷新控件
     compile 'com.zhy:base-rvadapter:3.0.3'
+
     //通用的recycleviewadapter
     compile 'com.zhy:base-adapter:3.0.3'
+
     //通用的listviewadapter
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'id.zelory:compressor:2.1.0'
+    //compile 'id.zelory:compressor:2.1.0'
+    compile 'top.zibin:Luban:1.1.3'
     //图片压缩
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
+
     //图片选择器
     compile 'com.github.chrisbanes:PhotoView:1.3.1'
     compile 'com.android.support:design:25.3.1'
+
     //手势控制的imageview
+    compile 'pub.devrel:easypermissions:1.0.1'
+    compile 'com.ycjiang:imgepreviewlibrary:1.1.1'
+
+    //预览图片框架
     testCompile 'junit:junit:4.12'
-    //    compile files('libs/zbar.jar')
-    //    compile files('libs/alipaySdk-20170922.jar')
-    //    compile files('libs/libammsdk.jar')
+    compile 'org.greenrobot:greendao:3.0.1'
+
+    //数据库
+    compile 'org.greenrobot:greendao-generator:3.0.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+
+    //谷歌浏览器可以查看数据库的内容
+    compile 'cn.pedant.sweetalert:library:1.3'
+
+    //吸顶效果的
+    compile 'se.emilsjolander:stickylistheaders:latest.release'
+
+    //dialog
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/umeng_social_api.jar')
     compile files('libs/tbs_sdk_thirdapp_v2.6.0.1045_36900.jar')
+}
+
+//添加
+publish {
+    userOrg = 'zhanghao793060640'//bintray.com用户名
+    groupId = 'com.zhanghao'//jcenter上的路径
+    artifactId = 'speed'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'Oh hi, this is a nice description for a project, right?'//描述，不重要
+    website = 'https://github.com/hyman/basetools'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }

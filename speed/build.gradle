@@ -11,8 +11,10 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' // 添加的部分
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'  //上传到jcenter需要的
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.0.0' //数据库的
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
 
@@ -20,6 +22,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+       // maven { url "https://maven.google.com"}
     }
 }
 

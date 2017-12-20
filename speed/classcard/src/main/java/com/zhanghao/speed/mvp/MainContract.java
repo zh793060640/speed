@@ -1,9 +1,8 @@
 package com.zhanghao.speed.mvp;
 
-import com.zhanghao.core.bean.RegisterInfo;
+import com.zhanghao.core.api.ImageBean;
 import com.zhanghao.core.base.BaseModle;
 import com.zhanghao.core.base.BasePresenter;
-import com.zhanghao.core.base.BaseRespose;
 import com.zhanghao.core.base.BaseView;
 
 import io.reactivex.Observable;
@@ -16,7 +15,7 @@ import io.reactivex.Observable;
 public interface MainContract {
 
     interface Model extends BaseModle {
-        public Observable<BaseRespose<RegisterInfo>> checkRegister(String mac);
+        public Observable<ImageBean> uploadPhoto(String path);
     }
 
     interface View extends BaseView {
@@ -24,6 +23,6 @@ public interface MainContract {
     }
 
     abstract class Presenter extends BasePresenter<View, Model> {
-        public abstract void checkRegister(String mac);
+        public abstract void uploadPhoto(String path);
     }
 }

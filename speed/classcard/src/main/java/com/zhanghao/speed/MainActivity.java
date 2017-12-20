@@ -2,27 +2,21 @@ package com.zhanghao.speed;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.base.BaseWebActivity;
+import com.zhanghao.core.ui.BaseRefreshView;
 import com.zhanghao.core.utils.GalleryFinalUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
+import com.zhanghao.speed.test.DragSortActivity;
+import com.zhanghao.speed.test.StickActivity;
 import com.zhanghao.speed.test.TestAdapter;
 import com.zhanghao.speed.test.TransationActivity;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +27,8 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 public class MainActivity extends BaseActivity<MainPresenter, MainModel> implements MainContract.View, GalleryFinal.OnHanlderResultCallback {
 
-    RecyclerView recyclerView;
-    SmartRefreshLayout smartRefreshLayout;
+    private BaseRefreshView baseRefreshView;
+    TextView tvShape;
 
     @Override
     protected void initPresenter() {
@@ -43,15 +37,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
+        // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void initView() {
         myTitleBar.setTitle("测试");
-        recyclerView = findView(R.id.recyclerView);
-        smartRefreshLayout = findView(R.id.smartRefreshLayout);
+        baseRefreshView = findView(R.id.baseRefreshView);
+        tvShape = findView(R.id.tvShape);
         List<String> data = new ArrayList<>();
         data.add("图片选择");
         data.add("二维码");
@@ -59,35 +53,28 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         data.add("仿微信图片查看");
         data.add("x5webview");
         data.add("CoordinatorLayout");
-        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        data.add("吸顶效果");
+        data.add("拖拽排序");
+        baseRefreshView.setRefreshListener(new BaseRefreshView.RefreshListener() {
+
             @Override
-            public void onLoadmore(final RefreshLayout refreshlayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshlayout.finishLoadmore();
-                    }
-                }, 1000);
+            public void refresh() {
+                baseRefreshView.setRefreshAndLoadFinish();
             }
 
             @Override
-            public void onRefresh(final RefreshLayout refreshlayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshlayout.finishRefresh();
-                    }
-                }, 1000);
+            public void loadMore(int page) {
+                baseRefreshView.setRefreshAndLoadFinish();
             }
         });
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TestAdapter adapter = new TestAdapter(activity, R.layout.item_test, data);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+
+        TestAdapter adapter = new TestAdapter(activity, data);
+        baseRefreshView.setAdapter(adapter);
+        adapter.setListener(new TestAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                switch (position) {
+            public void onclick(int postion) {
+                int a =postion;
+                switch (a) {
                     case 0:
                         GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
                         break;
@@ -96,7 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         startActivity(intent);
                         break;
                     case 2:
-                       //startActivity(new Intent(activity, TransationActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                        //startActivity(new Intent(activity, TransationActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
                         startActivity(new Intent(activity, TransationActivity.class));
                         break;
                     case 3:
@@ -108,19 +95,21 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                     case 5:
                         startActivity(new Intent(activity, CoordinatorLayoutActivity.class));
                         break;
+                    case 6:
+                        startActivity(new Intent(activity, StickActivity.class));
+                        break;
+                    case 7:
+                        startActivity(new Intent(activity, DragSortActivity.class));
+                        break;
                 }
             }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
         });
+
     }
 
     @Override
     protected void initData() {
-
+        mPresenter.getInfo();
     }
 
 
@@ -138,7 +127,9 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
     @Override
     public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
-
+        if (resultList != null) {
+            mPresenter.uploadPhoto(resultList.get(0).getPhotoPath());
+        }
     }
 
     @Override
