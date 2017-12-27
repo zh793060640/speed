@@ -16,7 +16,9 @@
             android:id="@+id/img_item_icon"
             android:layout_width="@dimen/x86"
             android:layout_height="@dimen/x86"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+
+            />
 
         <TextView
             android:id="@+id/tv_item_name"

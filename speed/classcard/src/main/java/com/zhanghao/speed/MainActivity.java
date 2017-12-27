@@ -21,14 +21,20 @@ import com.zhanghao.speed.test.TransationActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 
 public class MainActivity extends BaseActivity<MainPresenter, MainModel> implements MainContract.View, GalleryFinal.OnHanlderResultCallback {
 
-    private BaseRefreshView baseRefreshView;
+
+    @BindView(R.id.tvShape)
     TextView tvShape;
+    @BindView(R.id.baseRefreshView)
+    BaseRefreshView baseRefreshView;
+//    private BaseRefreshView baseRefreshView;
+//    TextView tvShape;
 
     @Override
     protected void initPresenter() {
@@ -42,10 +48,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     }
 
     @Override
+    public boolean isShowBaseTitle() {
+        return false;
+    }
+
+    @Override
     protected void initView() {
-        myTitleBar.setTitle("测试");
-        baseRefreshView = findView(R.id.baseRefreshView);
-        tvShape = findView(R.id.tvShape);
+        // myTitleBar.setTitle("测试");
+//        baseRefreshView = findView(R.id.baseRefreshView);
+//        tvShape = findView(R.id.tvShape);
         List<String> data = new ArrayList<>();
         data.add("图片选择");
         data.add("二维码");
@@ -55,6 +66,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         data.add("CoordinatorLayout");
         data.add("吸顶效果");
         data.add("拖拽排序");
+        //FragmentUtils.addFragment(fm, new TestFragment(), R.id.fragment);
         baseRefreshView.setRefreshListener(new BaseRefreshView.RefreshListener() {
 
             @Override
@@ -73,7 +85,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         adapter.setListener(new TestAdapter.OnItemClickListener() {
             @Override
             public void onclick(int postion) {
-                int a =postion;
+                int a = postion;
                 switch (a) {
                     case 0:
                         GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);

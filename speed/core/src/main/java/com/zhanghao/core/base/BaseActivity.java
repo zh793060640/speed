@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.zhanghao.core.R;
@@ -21,17 +22,17 @@ import com.zhanghao.core.utils.Utils;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-
-public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle> extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel> extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     protected FragmentManager fm;
     public T mPresenter;
     public E mModel;
-    protected AppCompatActivity activity = this;
+    protected BaseActivity activity = this;
     protected Intent extraIntent;
     protected static String TAG;
     private ActivityManager activityManager;
@@ -39,6 +40,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
     private FrameLayout flContentl;
     private EmptyLayout emptyLayout;
     private SweetAlertDialog mDialog;
+    private Unbinder mUnbinder;
+    boolean showBaseTitle = false;   //是否默认的头布局和空数据view
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +63,26 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
                 return;
             }
         }
-        setContentView(R.layout.activity_base);
-        myTitleBar = (MyTitleBar) findViewById(R.id.titlebar);
-        flContentl = (FrameLayout) findViewById(R.id.flContent);
-        emptyLayout = findView(R.id.emptyLayout);
-        if (getContentView() != 0) {
-            View content = LayoutInflater.from(this).inflate(getContentView(), null);
-            flContentl.removeAllViews();
-            flContentl.addView(content);
+        // setContentView(R.layout.activity_base);
+        showBaseTitle = isShowBaseTitle();
+        if (showBaseTitle) {
+            ViewGroup rootView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_base, null);
+            myTitleBar = (MyTitleBar) rootView.findViewById(R.id.titlebar);
+            flContentl = (FrameLayout) rootView.findViewById(R.id.flContent);
+            emptyLayout = (EmptyLayout) rootView.findViewById(R.id.emptyLayout);
+
+            if (getContentView() != 0) {
+                View content = LayoutInflater.from(this).inflate(getContentView(), null);
+                flContentl.removeAllViews();
+                flContentl.addView(content);
+            }
+            setContentView(rootView);
+        } else {
+            setContentView(getContentView());
         }
-        ButterKnife.bind(this);
+
+        mUnbinder = ButterKnife.bind(this);
+
         fm = getSupportFragmentManager();
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
@@ -80,6 +93,10 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
         this.initView();
         this.initData();
         AppManager.I().addActivity(this);
+    }
+
+    public boolean isShowBaseTitle() {
+        return true;
     }
 
     protected abstract void initPresenter();
@@ -106,6 +123,9 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModle>
             mPresenter.onDestroy();
         }
         AppManager.I().removeActivity(this);
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
         super.onDestroy();
     }
 

@@ -14,6 +14,7 @@
         android:gravity="center"
         android:text="测试shape" />
 
+
     <com.zhanghao.core.ui.BaseRefreshView
         android:id="@+id/baseRefreshView"
         android:layout_width="match_parent"

@@ -25,6 +25,4 @@
             android:visibility="gone"></com.zhanghao.core.ui.EmptyLayout>
 
     </RelativeLayout>
-
-
 </LinearLayout>

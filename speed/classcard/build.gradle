@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: 'tinker-support.gradle'
+apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -125,4 +126,5 @@ dependencies {
     })
     compile project(':core')
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0' // 修改的地方 把annotationProcessor改为apt
 }

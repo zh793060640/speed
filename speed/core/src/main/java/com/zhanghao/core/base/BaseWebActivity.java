@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * 功能：${des}
  */
 
-public class BaseWebActivity extends BaseActivity<BasePresenter, BaseModle> {
+public class BaseWebActivity extends BaseActivity<BasePresenter, BaseModel> {
     public static final String EXTRL_URL = "url";
     public X5WebView webView;
     public ArrayList<String> loadHistoryUrls = new ArrayList<String>();

@@ -6,5 +6,5 @@ package com.zhanghao.core.base;
  * 说明：
  ************************************************************************************************/
 
-public interface BaseModle {
+public interface BaseModel {
 }

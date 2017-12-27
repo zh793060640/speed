@@ -1,7 +1,7 @@
 package com.zhanghao.speed.mvp;
 
 import com.zhanghao.core.api.ImageBean;
-import com.zhanghao.core.base.BaseModle;
+import com.zhanghao.core.base.BaseModel;
 import com.zhanghao.core.base.BasePresenter;
 import com.zhanghao.core.base.BaseView;
 
@@ -14,7 +14,7 @@ import io.reactivex.Observable;
 
 public interface MainContract {
 
-    interface Model extends BaseModle {
+    interface Model extends BaseModel {
         public Observable<ImageBean> uploadPhoto(String path);
     }
 

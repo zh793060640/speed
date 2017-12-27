@@ -7,14 +7,14 @@ import android.util.Log;
 
 import com.zhanghao.core.R;
 import com.zhanghao.core.base.BaseActivity;
-import com.zhanghao.core.base.BaseModle;
+import com.zhanghao.core.base.BaseModel;
 import com.zhanghao.core.base.BasePresenter;
 
 
 /**
  * 二维码扫描的界面
  */
-public class ZbarActivity extends BaseActivity<BasePresenter, BaseModle> implements QRCodeView.Delegate {
+public class ZbarActivity extends BaseActivity<BasePresenter, BaseModel> implements QRCodeView.Delegate {
     private static final String TAG = ZbarActivity.class.getSimpleName();
     private QRCodeView mQRCodeView;
 

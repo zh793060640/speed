@@ -4,14 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
+import com.zhanghao.core.R;
 import com.zhanghao.core.base.baserx.TUtil;
+import com.zhanghao.core.ui.EmptyLayout;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /*************************************************************************************************
@@ -20,16 +24,18 @@ import com.zhanghao.core.base.baserx.TUtil;
  * 说明：
  ************************************************************************************************/
 
-public abstract class BaseFragment<T extends BasePresenter, E extends BaseModle> extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment<T extends BasePresenter, E extends BaseModel> extends Fragment implements View.OnClickListener {
     //TODO:如果Fragment不需要MVP，子类需要写成extends BaseFragment<WorkPresenter, WorkModel>，否则报错
     protected View rootView;
     public T mPresenter;
     public E mModel;
-    public FragmentActivity activity;
+    public BaseActivity activity;
     private InputMethodManager inputMethodManager;
     private String TAG;
-    private RelativeLayout headR;
-
+    public MyTitleBar myTitleBar;
+    private FrameLayout flContentl;
+    private EmptyLayout emptyLayout;
+    private Unbinder mUnbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,9 +46,22 @@ public abstract class BaseFragment<T extends BasePresenter, E extends BaseModle>
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TAG = this.getClass().getSimpleName();
-        if (rootView == null)
-            rootView = inflater.inflate(getContentView(), container, false);
-        activity= getActivity();
+        activity = (BaseActivity) getActivity();
+        rootView = LayoutInflater.from(activity).inflate(R.layout.fragment_base, null);
+        myTitleBar = (MyTitleBar) rootView.findViewById(R.id.titlebar);
+        flContentl = (FrameLayout) rootView.findViewById(R.id.flContent);
+        emptyLayout = (EmptyLayout) rootView.findViewById(R.id.emptyLayout);
+
+
+        if (getContentView() != 0) {
+            View contentView = LayoutInflater.from(activity).inflate(getContentView(), container,false);
+            flContentl.removeAllViews();
+            flContentl.addView(contentView);
+        }
+        mUnbinder = ButterKnife.bind(this, rootView);
+//        if (rootView == null)
+//            rootView = inflater.inflate(getContentView(), container, false);
+
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
         if (mPresenter != null) {
@@ -55,7 +74,6 @@ public abstract class BaseFragment<T extends BasePresenter, E extends BaseModle>
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        activity = getActivity();
         inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         initPresenter();
         initView();
@@ -72,6 +90,9 @@ public abstract class BaseFragment<T extends BasePresenter, E extends BaseModle>
     public void onDestroy() {
         if (mPresenter != null)
             mPresenter.onDestroy();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
         super.onDestroy();
     }
 
