@@ -182,4 +182,5 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         // Some permissions have been denied
         // ...
     }
+
 }

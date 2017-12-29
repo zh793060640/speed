@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.base.BaseWebActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
+import com.zhanghao.core.ui.CommentDialgNew;
+import com.zhanghao.core.ui.CommentDialog;
 import com.zhanghao.core.utils.GalleryFinalUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
@@ -36,6 +38,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 //    private BaseRefreshView baseRefreshView;
 //    TextView tvShape;
 
+    private CommentDialgNew commentDialog;
+
     @Override
     protected void initPresenter() {
         mPresenter.setVM(this, mModel);
@@ -57,6 +61,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         // myTitleBar.setTitle("测试");
 //        baseRefreshView = findView(R.id.baseRefreshView);
 //        tvShape = findView(R.id.tvShape);
+
         List<String> data = new ArrayList<>();
         data.add("图片选择");
         data.add("二维码");
@@ -66,6 +71,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         data.add("CoordinatorLayout");
         data.add("吸顶效果");
         data.add("拖拽排序");
+        data.add("评论框");
         //FragmentUtils.addFragment(fm, new TestFragment(), R.id.fragment);
         baseRefreshView.setRefreshListener(new BaseRefreshView.RefreshListener() {
 
@@ -112,6 +118,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         break;
                     case 7:
                         startActivity(new Intent(activity, DragSortActivity.class));
+                    case 8:
+                        showCommentDialog("回复张浩：");
                         break;
                 }
             }
@@ -147,5 +155,16 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     @Override
     public void onHanlderFailure(int requestCode, String errorMsg) {
 
+    }
+
+    public void showCommentDialog(String hint) {
+        commentDialog = new CommentDialgNew(activity, hint);
+        commentDialog.setCommentListener(new CommentDialog.CommentListener() {
+            @Override
+            public void send(String content) {
+
+            }
+        });
+        commentDialog.show();
     }
 }
