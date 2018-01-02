@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         data.add("吸顶效果");
         data.add("拖拽排序");
         data.add("评论框");
+        data.add("腾讯im");
         //FragmentUtils.addFragment(fm, new TestFragment(), R.id.fragment);
         baseRefreshView.setRefreshListener(new BaseRefreshView.RefreshListener() {
 
@@ -121,12 +122,20 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                     case 8:
                         showCommentDialog("回复张浩：");
                         break;
+                    case 9:
+
+                        break;
                 }
             }
         });
 
     }
 
+
+
+    public void loginTX(){
+
+    }
     @Override
     protected void initData() {
         mPresenter.getInfo();

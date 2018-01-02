@@ -80,4 +80,13 @@
         <attr name="arrow_visibility" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="CustomEditext">
+        <attr name="leftImage" format="reference" />
+        <attr name="rightImage" format="reference" />
+        <attr name="background" format="reference" />
+        <attr name="hint" format="string"  />
+        <attr name="showLeft" format="boolean"  />
+        <attr name="showRight" format="boolean"  />
+    </declare-styleable>
+
 </resources>

@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.previewlibrary.enitity.ThumbViewInfo;
 import com.zhanghao.core.base.BaseActivity;
+import com.zhanghao.core.ui.CustomEditext;
+import com.zhanghao.core.utils.ToastUtils;
 import com.zhanghao.speed.R;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
@@ -21,12 +23,15 @@ import java.util.List;
  */
 
 public class TransationActivity extends BaseActivity<MainPresenter, MainModel> {
-private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private CustomEditext edt1, edt2;
     private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
+
     @Override
     protected void initPresenter() {
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
@@ -39,10 +44,19 @@ private RecyclerView recyclerView;
     protected void initView() {
         myTitleBar.setTitle("转场动画");
         recyclerView = findView(R.id.recyclerView);
+        edt1 = findView(R.id.edt1);
+        edt2 = findView(R.id.edt2);
+        edt2.setEditActionDo(true);
+        edt2.setActionListener(new CustomEditext.ActionListener() {
+            @Override
+            public void actionDo() {
+                ToastUtils.showLongToast(edt2.getContentText());
+            }
+        });
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<String> urls = ImageUrlConfig.getUrls();
-        for (int i = 0; i <9; i++) {
+        for (int i = 0; i < 9; i++) {
             mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
         }
         NineAdapter adapter = new NineAdapter(activity, R.layout.item_nineimage, mThumbViewInfoList);
