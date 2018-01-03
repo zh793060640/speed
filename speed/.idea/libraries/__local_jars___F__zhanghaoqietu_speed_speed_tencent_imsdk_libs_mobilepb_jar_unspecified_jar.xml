@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="__local_jars__:F.\zhanghaoqietu\speed\speed\tencent_imsdk\libs\mobilepb.jar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tencent_imsdk/libs/mobilepb.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

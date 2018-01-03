@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/classcard/classcard.iml" filepath="$PROJECT_DIR$/classcard/classcard.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/speed.iml" filepath="$PROJECT_DIR$/speed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tencent_imsdk/tencent_imsdk.iml" filepath="$PROJECT_DIR$/tencent_imsdk/tencent_imsdk.iml" />
     </modules>
   </component>
 </project>

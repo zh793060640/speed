@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/left_layout"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/left_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:layout_alignParentLeft="true"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
+
+    <RelativeLayout
+        android:id="@+id/right_layout"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/right_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="11dp"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/right_image_dot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/remindthedot"
+            android:gravity="center"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

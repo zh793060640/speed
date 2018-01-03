@@ -1,8 +1,11 @@
 package com.zhanghao.speed;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.base.BaseWebActivity;
@@ -49,6 +52,23 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     protected void onCreate(Bundle savedInstanceState) {
         // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
         super.onCreate(savedInstanceState);
+        Foreground.init(this);
+        MyApplication.context = getApplicationContext();
+        if(MsfSdkUtils.isMainProcess(this)) {
+            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
+                @Override
+                public void handleNotification(TIMOfflinePushNotification notification) {
+                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
+                        //消息被设置为需要提醒
+                        notification.doNotify(getApplicationContext(), com.tencent.qcloud.timchat.R.mipmap.ic_launcher);
+                    }
+                }
+            });
+        }
+
+        InitBusiness.start(getApplicationContext(), TIMLogLevel.DEBUG.ordinal());
+        initTIMUserConfig();
+        intervelHX();
     }
 
     @Override
@@ -175,5 +195,99 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             }
         });
         commentDialog.show();
+    }
+
+    private void initTIMUserConfig() {
+        //登录之前要初始化群和好友关系链缓存
+        TIMUserConfig userConfig = new TIMUserConfig();
+        userConfig.setUserStatusListener(new TIMUserStatusListener() {
+            @Override
+            public void onForceOffline() {
+                Log.d(TAG, "receive force offline message");
+                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onUserSigExpired() {
+                //票据过期，需要重新登录
+                new NotifyDialog().show(getString(com.tencent.qcloud.timchat.R.string.tls_expire), getSupportFragmentManager(), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                            logout();
+                    }
+                });
+            }
+        })
+                .setConnectionListener(new TIMConnListener() {
+                    @Override
+                    public void onConnected() {
+                        Log.i(TAG, "onConnected");
+                    }
+
+                    @Override
+                    public void onDisconnected(int code, String desc) {
+                        Log.i(TAG, "onDisconnected");
+                    }
+
+                    @Override
+                    public void onWifiNeedAuth(String name) {
+                        Log.i(TAG, "onWifiNeedAuth");
+                    }
+                });
+
+        //设置刷新监听
+        RefreshEvent.getInstance().init(userConfig);
+        userConfig = FriendshipEvent.getInstance().init(userConfig);
+        userConfig = GroupEvent.getInstance().init(userConfig);
+        userConfig = MessageEvent.getInstance().init(userConfig);
+        TIMManager.getInstance().setUserConfig(userConfig);
+
+
+    }
+
+
+    //循环检查环信初始化
+    private void intervelHX() {
+        String user = "lwt70009";
+        String sign = "eJxlz0FPgzAUwPE7n6LhbFwpIGOJh4lThjOFbJjghSC0zVPHsFShGr*7yJZIYq--X957-TIQQuZusz0vyvLwXqtc6YaZaIFMbJ79xaaBKi9UbsvqX2R9A5LlBVdMjtFyXZdgPDVQsVoBh5N47ZQ3AH8i2uolH9ccRzhDdn3Hs6cExBjvV2mwToKL6DPU7bMWybKELHpapgQqDOl2JcQegozFodVzrQOarEWY3CmqH2PZKZ49RMPNV7NNwewb*rbrZjhO6*ue39qUsvnlZKWCPTv9yXJ8z5oTZ1I-mGzhUI*A4IEQG-8*0-g2fgBU4F55";
+
+        LoginBusiness.loginIm(user, sign, new TIMCallBack() {
+            @Override
+            public void onError(int i, String s) {
+                Log.e(TAG, "login error : code " + i + " " + s);
+                switch (i) {
+                    case 6208:
+                        //离线状态下被其他终端踢下线
+                        NotifyDialog dialog = new NotifyDialog();
+                        dialog.show(getString(R.string.kick_logout), getSupportFragmentManager(), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                initTIMUserConfig();
+                            }
+                        });
+                        break;
+                    case 6200:
+                        Toast.makeText(MainActivity.this, getString(R.string.login_error_timeout), Toast.LENGTH_SHORT).show();
+                        initTIMUserConfig();
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+                        initTIMUserConfig();
+                        break;
+                }
+            }
+
+            @Override
+            public void onSuccess() {
+                //初始化程序后台后消息推送
+                PushUtil.getInstance();
+                //初始化消息监
+                MessageEvent.getInstance();
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            }
+        });
+
+
     }
 }

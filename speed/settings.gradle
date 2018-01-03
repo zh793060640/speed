@@ -1,1 +1,1 @@
-include ':core', ':classcard'
+include ':core', ':classcard', ':tencent_imsdk'
