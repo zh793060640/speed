@@ -7,6 +7,22 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.imsdk.TIMCallBack;
+import com.tencent.imsdk.TIMConnListener;
+import com.tencent.imsdk.TIMLogLevel;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMUserConfig;
+import com.tencent.imsdk.TIMUserStatusListener;
+import com.tencent.qcloud.presentation.business.InitBusiness;
+import com.tencent.qcloud.presentation.business.LoginBusiness;
+import com.tencent.qcloud.presentation.event.FriendshipEvent;
+import com.tencent.qcloud.presentation.event.GroupEvent;
+import com.tencent.qcloud.presentation.event.MessageEvent;
+import com.tencent.qcloud.presentation.event.RefreshEvent;
+import com.tencent.qcloud.timchat.ui.HomeActivity;
+import com.tencent.qcloud.timchat.ui.customview.DialogActivity;
+import com.tencent.qcloud.timchat.utils.PushUtil;
+import com.tencent.qcloud.ui.NotifyDialog;
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.base.BaseWebActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
@@ -52,20 +68,6 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     protected void onCreate(Bundle savedInstanceState) {
         // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS); //激活过度元素
         super.onCreate(savedInstanceState);
-        Foreground.init(this);
-        MyApplication.context = getApplicationContext();
-        if(MsfSdkUtils.isMainProcess(this)) {
-            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
-                @Override
-                public void handleNotification(TIMOfflinePushNotification notification) {
-                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
-                        //消息被设置为需要提醒
-                        notification.doNotify(getApplicationContext(), com.tencent.qcloud.timchat.R.mipmap.ic_launcher);
-                    }
-                }
-            });
-        }
-
         InitBusiness.start(getApplicationContext(), TIMLogLevel.DEBUG.ordinal());
         initTIMUserConfig();
         intervelHX();

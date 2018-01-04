@@ -1,1 +1,1 @@
-include ':core', ':classcard', ':tencent_imsdk'
+include ':core', ':classcard', ':ui', ':sdk', ':presentation', ':tximlibrary'

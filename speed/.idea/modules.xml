@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/classcard/classcard.iml" filepath="$PROJECT_DIR$/classcard/classcard.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/presentation/presentation.iml" filepath="$PROJECT_DIR$/presentation/presentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk/sdk.iml" filepath="$PROJECT_DIR$/sdk/sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/speed.iml" filepath="$PROJECT_DIR$/speed.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tencent_imsdk/tencent_imsdk.iml" filepath="$PROJECT_DIR$/tencent_imsdk/tencent_imsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tximlibrary/tximlibrary.iml" filepath="$PROJECT_DIR$/tximlibrary/tximlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
     </modules>
   </component>
 </project>

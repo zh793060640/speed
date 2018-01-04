@@ -20,6 +20,13 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMOfflinePushListener;
+import com.tencent.imsdk.TIMOfflinePushNotification;
+import com.tencent.qalsdk.sdk.MsfSdkUtils;
+import com.tencent.qcloud.timchat.MyApplication;
+import com.tencent.qcloud.timchat.utils.Foreground;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -78,6 +85,20 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         initPhotoSelete();//初始化图片选择器
         initShare();//初始化第三方分享
         ZoomMediaLoader.getInstance().init(new TestImageLoader());//9图查看
+
+        Foreground.init(getApplication());
+        MyApplication.context = getApplication().getApplicationContext();
+        if(MsfSdkUtils.isMainProcess(getApplication())) {
+            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
+                @Override
+                public void handleNotification(TIMOfflinePushNotification notification) {
+                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
+                        //消息被设置为需要提醒
+                        notification.doNotify( MyApplication.context, com.tencent.qcloud.timchat.R.mipmap.ic_launcher);
+                    }
+                }
+            });
+        }
     }
 
     public void initShare(){
