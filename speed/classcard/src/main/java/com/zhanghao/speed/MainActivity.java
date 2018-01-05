@@ -145,7 +145,11 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         showCommentDialog("回复张浩：");
                         break;
                     case 9:
-
+                        //初始化程序后台后消息推送
+                        PushUtil.getInstance();
+                        //初始化消息监
+                        MessageEvent.getInstance();
+                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
                         break;
                 }
             }

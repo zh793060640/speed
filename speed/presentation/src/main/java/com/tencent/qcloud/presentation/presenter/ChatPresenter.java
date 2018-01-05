@@ -78,6 +78,7 @@ public class ChatPresenter implements Observer {
             public void onError(int code, String desc) {//发送消息失败
                 //错误码code和错误描述desc，可用于定位请求失败原因
                 //错误码code含义请参见错误码表
+                Log.d(TAG, "onError: " +code+desc );
                 view.onSendMessageFail(code, desc, message);
             }
 
