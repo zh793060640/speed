@@ -6,12 +6,39 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/nice_spinner"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        app:arrowTint="@color/gray_btn_bg_color"
+        app:textTint="@color/colorAccent" />
+
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_ios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="4dp"
+        app:kswAnimationDuration="300"
+        app:kswBackDrawable="@drawable/ios_back_drawable"
+        app:kswThumbDrawable="@drawable/ios_thumb_selector"
+        app:kswThumbMarginBottom="-8dp"
+        app:kswThumbMarginLeft="-5dp"
+        app:kswThumbMarginRight="-5dp"
+        app:kswThumbMarginTop="-2.5dp"
+        app:kswThumbRangeRatio="1.4" />
+
+
     <com.zhanghao.core.ui.CustomEditext
         android:id="@+id/edt1"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        app:hint="秦输入内容"
         app:background="@drawable/shape_input"
+        app:hint="秦输入内容"
         app:leftImage="@drawable/ic_dynamic"
         app:rightImage="@drawable/ic_dynamic"></com.zhanghao.core.ui.CustomEditext>
 
@@ -20,9 +47,9 @@
         android:id="@+id/edt2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:hint="秦输入内容"
         android:layout_marginTop="@dimen/x70"
         app:background="@drawable/shape_input"
+        app:hint="秦输入内容"
         app:leftImage="@drawable/ic_dynamic"
         app:rightImage="@drawable/ic_dynamic"></com.zhanghao.core.ui.CustomEditext>
 

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="__local_jars__:F.\zhanghaoqietu\speed\speed\tencent_imsdk\libs\imsdk_msg_ext.jar:unspecified@jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/tencent_imsdk/libs/imsdk_msg_ext.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

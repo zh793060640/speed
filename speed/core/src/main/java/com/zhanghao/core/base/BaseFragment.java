@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public abstract class BaseFragment<T extends BasePresenter, E extends BaseModel>
     protected View rootView;
     public T mPresenter;
     public E mModel;
-    public BaseActivity activity;
+    public AppCompatActivity activity;
     private InputMethodManager inputMethodManager;
     private String TAG;
     public MyTitleBar myTitleBar;
@@ -46,7 +47,7 @@ public abstract class BaseFragment<T extends BasePresenter, E extends BaseModel>
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TAG = this.getClass().getSimpleName();
-        activity = (BaseActivity) getActivity();
+        activity = (AppCompatActivity) getActivity();
         rootView = LayoutInflater.from(activity).inflate(R.layout.fragment_base, null);
         myTitleBar = (MyTitleBar) rootView.findViewById(R.id.titlebar);
         flContentl = (FrameLayout) rootView.findViewById(R.id.flContent);
