@@ -33,6 +33,7 @@ import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
+import com.zhanghao.speed.temp.UserInfoActivity;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
 import com.zhanghao.speed.test.DragSortActivity;
 import com.zhanghao.speed.test.StickActivity;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         super.onCreate(savedInstanceState);
         InitBusiness.start(getApplicationContext(), TIMLogLevel.DEBUG.ordinal());
         initTIMUserConfig();
-        intervelHX();
+       // intervelHX();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         break;
                     case 2:
                         //startActivity(new Intent(activity, TransationActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-                        startActivity(new Intent(activity, TransationActivity.class));
+                        startActivity(new Intent(activity, UserInfoActivity.class));
                         break;
                     case 3:
                         startActivity(new Intent(activity, TransationActivity.class));

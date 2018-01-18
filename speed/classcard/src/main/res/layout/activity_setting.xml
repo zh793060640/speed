@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/change_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="修改密码"
+        app:arrow_visibility="true"></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/msg_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="消息设置"
+        app:arrow_visibility="true"></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="清理缓存"
+        app:arrow_visibility="true"></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/about_me"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="关于我们"
+        app:arrow_visibility="true"></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/help"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="帮助"
+        app:arrow_visibility="true"></com.zhanghao.core.ui.BaseItemView>
+</LinearLayout>

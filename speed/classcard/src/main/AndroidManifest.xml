@@ -95,6 +95,8 @@
         <activity android:name=".test.StickActivity" />
         <activity android:name=".test.DragSortActivity" />
         <activity android:name=".test.VideoActivity"></activity>
+        <activity android:name=".temp.SettingActivity"></activity>
+        <activity android:name=".temp.UserInfoActivity"></activity>
     </application>
 
 </manifest>

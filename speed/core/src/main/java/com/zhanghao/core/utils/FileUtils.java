@@ -2,6 +2,7 @@ package com.zhanghao.core.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Base64;
 
 import java.io.BufferedInputStream;
@@ -23,6 +24,7 @@ import java.io.OutputStream;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,12 +38,33 @@ import java.util.List;
  * </pre>1
  */
 public final class FileUtils {
+
+    public static final int SIZETYPE_B = 1;//获取文件大小单位为B的double值
+    public static final int SIZETYPE_KB = 2;//获取文件大小单位为KB的double值
+    public static final int SIZETYPE_MB = 3;//获取文件大小单位为MB的double值
+    public static final int SIZETYPE_GB = 4;//获取文件大小单位为GB的double值
     //图片缓存目录
-    private static String cache_image="image";
+    private static String cache_image = "image";
+    private static File base_cache;
+
     private FileUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    public static void init() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            base_cache = new File(Environment.getExternalStorageDirectory(),
+                    "Android/data/" + AppManager.I().getApplicationContext().getPackageName() + "/speech");
+        } else {
+            base_cache = new File(AppManager.I().getApplicationContext().getFilesDir().getParent()
+                    + File.separator + "speech");
+
+        }
+    }
+
+    public static  File getBaseCacheFile(){
+        return base_cache;
+    }
     /**
      * 根据文件路径获取文件
      *
@@ -73,7 +96,6 @@ public final class FileUtils {
     }
 
     /**
-     *
      * @param filePath 文件路径
      * @param newName  新名称
      * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
@@ -238,22 +260,41 @@ public final class FileUtils {
 
     /**
      * 获取缓存目录
+     *
      * @return
      */
-    public static File getCachePath(Context context){
+    public static File getCachePath(Context context) {
         File cacheDir = context.getExternalCacheDir();
-        if (!cacheDir.exists()){
+        if (!cacheDir.exists()) {
             cacheDir.mkdirs();
         }
         return cacheDir;
-    };
-    public static File getImageCachePath(Context context){
-            File file = new File(getCachePath(context), cache_image);
-        if (!file.exists()){
+    }
+    /**
+     * 获取指定路径的缓存目录
+     *
+     * @return
+     */
+    public static File getCachePath(Context context,String path) {
+        if (EmptyUtils.isEmpty(path)) {
+            return base_cache;
+        }
+        File cacheDir = new File(base_cache.getAbsolutePath() + File.separator + path);
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
+        return cacheDir;
+    }
+
+
+    public static File getImageCachePath(Context context) {
+        File file = new File(getCachePath(context), cache_image);
+        if (!file.exists()) {
             file.mkdirs();
         }
-            return file;
+        return file;
     }
+
     /**
      * 复制或移动目录
      *
@@ -1058,6 +1099,7 @@ public final class FileUtils {
         }
         return count;
     }
+
     public static String fileToBase64(File file) {
         String base64 = null;
         InputStream in = null;
@@ -1084,6 +1126,7 @@ public final class FileUtils {
         }
         return base64;
     }
+
     /**
      * 获取目录大小
      *
@@ -1429,5 +1472,117 @@ public final class FileUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 获取文件指定文件的指定单位的大小
+     *
+     * @param sizeType 获取大小的类型1为B、2为KB、3为MB、4为GB
+     * @return double值的大小
+     */
+    public static double getFileOrFilesSize(File file, int sizeType) {
+        long blockSize = 0;
+        try {
+            if (file.isDirectory()) {
+                blockSize = getFileSizes(file);
+            } else {
+                blockSize = getFileSize2(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return FormetFileSize(blockSize, sizeType);
+    }
+
+
+    /**
+     * 转换文件大小
+     *
+     * @param
+     * @return
+     */
+    public static String FormetFileSize(double fileS) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "";
+        String wrongSize = "0B";
+        if (fileS == 0) {
+            return wrongSize;
+        }
+        if (fileS < 1024) {
+            fileSizeString = df.format(fileS) + "B";
+        } else if (fileS < 1048576) {
+            fileSizeString = df.format(fileS / 1024) + "KB";
+        } else if (fileS < 1073741824) {
+            fileSizeString = df.format(fileS / 1048576) + "MB";
+        } else {
+            fileSizeString = df.format(fileS / 1073741824) + "GB";
+        }
+        return fileSizeString;
+    }
+    /**
+     * 转换文件大小,指定转换的类型
+     *
+     * @param fileS
+     * @param sizeType
+     * @return
+     */
+    private static double FormetFileSize(long fileS, int sizeType) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double fileSizeLong = 0;
+        switch (sizeType) {
+            case SIZETYPE_B:
+                fileSizeLong = Double.valueOf(df.format((double) fileS));
+                break;
+            case SIZETYPE_KB:
+                fileSizeLong = Double.valueOf(df.format((double) fileS / 1024));
+                break;
+            case SIZETYPE_MB:
+                fileSizeLong = Double.valueOf(df.format((double) fileS / 1048576));
+                break;
+            case SIZETYPE_GB:
+                fileSizeLong = Double.valueOf(df.format((double) fileS / 1073741824));
+                break;
+            default:
+                break;
+        }
+        return fileSizeLong;
+    }
+    /**
+     * 获取指定文件夹大小
+     *
+     * @param f
+     * @return
+     * @throws Exception
+     */
+    private static long getFileSizes(File f) throws Exception {
+        long size = 0;
+        File flist[] = f.listFiles();
+        for (int i = 0; i < flist.length; i++) {
+            if (flist[i].isDirectory()) {
+                size = size + getFileSizes(flist[i]);
+            } else {
+                size = size + getFileSize2(flist[i]);
+            }
+        }
+        return size;
+    }
+
+    /**
+     * 获取指定文件大小
+     *
+     * @param
+     * @return
+     * @throws Exception
+     */
+    private static long getFileSize2(File file) throws Exception {
+        long size = 0;
+        if (file.exists()) {
+            FileInputStream fis = null;
+            fis = new FileInputStream(file);
+            size = fis.available();
+        } else {
+            file.createNewFile();
+        }
+        return size;
     }
 }

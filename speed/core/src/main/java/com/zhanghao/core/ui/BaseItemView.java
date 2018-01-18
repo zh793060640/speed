@@ -20,7 +20,7 @@ import com.zhanghao.core.R;
 
 public class BaseItemView extends LinearLayout {
 
-    private TextView tvName;
+    private TextView tvName,tv_item_right;
     private ImageView imgIcon, imgArrow;
     private View lineSpilt;
     private Boolean showArrow, showLine;
@@ -47,11 +47,14 @@ public class BaseItemView extends LinearLayout {
         ta.recycle();
         LayoutInflater.from(context).inflate(R.layout.layout_baseitem_view, this);
         tvName = (TextView) findViewById(R.id.tv_item_name);
+        tv_item_right = (TextView) findViewById(R.id.tv_item_right);
         imgIcon = (ImageView) findViewById(R.id.img_item_icon);
         imgArrow = (ImageView) findViewById(R.id.img_item_arrow);
         lineSpilt = findViewById(R.id.item_line);
         if (image != null) {
             imgIcon.setImageDrawable(image);
+        }else {
+            imgIcon.setVisibility(View.GONE);
         }
         tvName.setText(name);
 
@@ -84,5 +87,18 @@ public class BaseItemView extends LinearLayout {
 
     public void setItemName(String name) {
         tvName.setText(name);
+    }
+
+    public void setRightText (String text){
+        tv_item_right.setText(text);
+    }
+
+    public void setRightText (String text,int drawableLeft){
+
+        Drawable left= getResources().getDrawable(drawableLeft);
+        left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight()); //设置边界
+        tv_item_right.setCompoundDrawablePadding(10);
+        tv_item_right.setCompoundDrawables(left,null,null,null);
+        tv_item_right.setText(text);
     }
 }

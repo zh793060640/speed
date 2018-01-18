@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_head"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x140"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x20"
+        android:paddingRight="@dimen/x20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="头像" />
+
+        <ImageView
+            android:id="@+id/img_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x20" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="用户名"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_hone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="手机号"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_realname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="真实姓名"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_sex"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="性别"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="呢称"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="出生日期"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_intrest"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x100"
+    app:ItemName="兴趣爱好"
+    ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_wexin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="微信号"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+    <com.zhanghao.core.ui.BaseItemView
+        android:id="@+id/user_qq"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        app:ItemName="QQ号"
+        ></com.zhanghao.core.ui.BaseItemView>
+
+</LinearLayout>
