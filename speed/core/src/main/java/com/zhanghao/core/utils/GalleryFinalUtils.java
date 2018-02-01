@@ -22,7 +22,8 @@ public class GalleryFinalUtils {
 
     public static void openGalleryMuti(int max, GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback) {
         FunctionConfig config = new FunctionConfig.Builder()
-                .setMutiSelectMaxSize(max).setEnableCamera(true)
+                .setMutiSelectMaxSize(max).setEnableCamera(true).setEnableEdit(true)
+                .setEnableCrop(true)
                 .build();
         GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, config, mOnHanlderResultCallback);
 

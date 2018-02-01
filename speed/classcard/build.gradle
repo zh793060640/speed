@@ -129,4 +129,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // 修改的地方 把annotationProcessor改为apt
+    compile project(':calendar')
 }

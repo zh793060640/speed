@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 
@@ -81,31 +82,35 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         Utils.init(getApplication());//初始化一个通用的utils
         RetrofitClient.init(BuildConfig.SERVER_ADDRESS);//初始化网络请求库
 
-        Stetho.initializeWithDefaults(getApplication()); //初始化谷歌查看数据库
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(getApplication())
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(getApplication()))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(getApplication()))
+                        .build());
         initPhotoSelete();//初始化图片选择器
         initShare();//初始化第三方分享
         ZoomMediaLoader.getInstance().init(new TestImageLoader());//9图查看
 
         Foreground.init(getApplication());
         MyApplication.context = getApplication().getApplicationContext();
-        if(MsfSdkUtils.isMainProcess(getApplication())) {
+        if (MsfSdkUtils.isMainProcess(getApplication())) {
             TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
                 @Override
                 public void handleNotification(TIMOfflinePushNotification notification) {
-                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
+                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify) {
                         //消息被设置为需要提醒
-                        notification.doNotify( MyApplication.context, com.tencent.qcloud.timchat.R.mipmap.ic_launcher);
+                        notification.doNotify(MyApplication.context, com.tencent.qcloud.timchat.R.mipmap.ic_launcher);
                     }
                 }
             });
         }
     }
 
-    public void initShare(){
+    public void initShare() {
         UMShareAPI.get(getApplication());
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
         //豆瓣RENREN平台目前只能在服务器端配置
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
 
@@ -127,7 +132,9 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     }
 
     public void initPhotoSelete() {
-        ThemeConfig theme = new ThemeConfig.Builder().setTitleBarBgColor(getApplication().getResources().getColor(R.color.colorAccent))
+        ThemeConfig theme = new ThemeConfig.Builder()
+                .setTitleBarBgColor(Color.parseColor("#ff9100")).setCheckNornalColor(R.color.green).setCheckSelectedColor(Color.parseColor("#ff9100")).setCropControlColor(R.color.green)
+        .setIconCamera(R.drawable.icon_record_camera).setFabNornalColor(Color.parseColor("#ff9100")).setFabPressedColor(Color.parseColor("#ff9100"))
                 .build();
         //配置功能
         FunctionConfig functionConfig = new FunctionConfig.Builder()

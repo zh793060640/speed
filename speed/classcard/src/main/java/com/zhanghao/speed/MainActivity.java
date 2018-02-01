@@ -24,7 +24,6 @@ import com.tencent.qcloud.timchat.ui.customview.DialogActivity;
 import com.tencent.qcloud.timchat.utils.PushUtil;
 import com.tencent.qcloud.ui.NotifyDialog;
 import com.zhanghao.core.base.BaseActivity;
-import com.zhanghao.core.base.BaseWebActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
 import com.zhanghao.core.ui.CommentDialgNew;
 import com.zhanghao.core.ui.CommentDialog;
@@ -33,6 +32,7 @@ import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
+import com.zhanghao.speed.temp.DateCustomeActivity;
 import com.zhanghao.speed.temp.UserInfoActivity;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
 import com.zhanghao.speed.test.DragSortActivity;
@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         startActivity(new Intent(activity, TransationActivity.class));
                         break;
                     case 4:
-                        startActivity(new Intent(activity, BaseWebActivity.class));
+                        startActivity(new Intent(activity, DateCustomeActivity.class));
                         break;
                     case 5:
                         startActivity(new Intent(activity, CoordinatorLayoutActivity.class));

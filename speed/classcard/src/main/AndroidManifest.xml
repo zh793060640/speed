@@ -97,6 +97,7 @@
         <activity android:name=".test.VideoActivity"></activity>
         <activity android:name=".temp.SettingActivity"></activity>
         <activity android:name=".temp.UserInfoActivity"></activity>
+        <activity android:name=".temp.DateCustomeActivity"></activity>
     </application>
 
 </manifest>

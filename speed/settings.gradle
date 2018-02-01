@@ -1,1 +1,1 @@
-include ':core', ':classcard', ':ui', ':sdk', ':presentation', ':tximlibrary'
+include ':core', ':classcard', ':ui', ':sdk', ':presentation', ':tximlibrary', ':calendar'
