@@ -42,6 +42,7 @@ import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.ThemeConfig;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 作者： zhanghao on 2017/7/26.
@@ -90,6 +91,9 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         initPhotoSelete();//初始化图片选择器
         initShare();//初始化第三方分享
         ZoomMediaLoader.getInstance().init(new TestImageLoader());//9图查看
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(AppManager.I().getApplicationContext());
 
         Foreground.init(getApplication());
         MyApplication.context = getApplication().getApplicationContext();

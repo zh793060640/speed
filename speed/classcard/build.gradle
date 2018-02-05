@@ -27,6 +27,11 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+
+            abiFilters 'armeabi'
+
+        }
     }
 
     flavorDimensions "channel"  //适配安卓studio3.0
@@ -47,6 +52,12 @@ android {
         debug {
             signingConfig signingConfigs.releaseConfig
             buildConfigField 'String', 'SERVER_ADDRESS', project.properties['DEBUG_SERVER']
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 

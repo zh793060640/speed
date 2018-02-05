@@ -33,7 +33,7 @@ import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
 import com.zhanghao.speed.mvp.MainPresenter;
 import com.zhanghao.speed.temp.DateCustomeActivity;
-import com.zhanghao.speed.temp.UserInfoActivity;
+import com.zhanghao.speed.temp.GroupTestActivity;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
 import com.zhanghao.speed.test.DragSortActivity;
 import com.zhanghao.speed.test.StickActivity;
@@ -46,6 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+import cn.jpush.android.api.JPushInterface;
 
 
 public class MainActivity extends BaseActivity<MainPresenter, MainModel> implements MainContract.View, GalleryFinal.OnHanlderResultCallback {
@@ -96,6 +97,13 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         data.add("拖拽排序");
         data.add("评论框");
         data.add("腾讯im");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JPushInterface.setAlias(activity, 1, "123456");
+            }
+        }).start();
+
         //FragmentUtils.addFragment(fm, new TestFragment(), R.id.fragment);
         baseRefreshView.setRefreshListener(new BaseRefreshView.RefreshListener() {
 
@@ -126,7 +134,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                         break;
                     case 2:
                         //startActivity(new Intent(activity, TransationActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-                        startActivity(new Intent(activity, UserInfoActivity.class));
+                        startActivity(new Intent(activity, GroupTestActivity.class));
                         break;
                     case 3:
                         startActivity(new Intent(activity, TransationActivity.class));
