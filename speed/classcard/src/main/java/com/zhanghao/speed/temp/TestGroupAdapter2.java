@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhanghao.core.utils.ToastUtils;
 import com.zhanghao.speed.R;
 
 import java.util.List;
@@ -20,14 +18,14 @@ import java.util.Map;
  * 功能：${des}
  */
 
-public class TestGroupAdapter extends BaseExpandableListAdapter {
+public class TestGroupAdapter2 extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
     private Context mContext;
 
     private List<String> groups;
     private Map<String, List<SectionInfo>> mMembers;
-    private int selectedGroupId, selectedChildId;
+    private int selectedGroupId = -1, selectedChildId;
 
-    public TestGroupAdapter(Context mContext, List<String> groups, Map<String, List<SectionInfo>> mMembers) {
+    public TestGroupAdapter2(Context mContext, List<String> groups, Map<String, List<SectionInfo>> mMembers) {
         this.mContext = mContext;
         this.groups = groups;
         this.mMembers = mMembers;
@@ -38,10 +36,6 @@ public class TestGroupAdapter extends BaseExpandableListAdapter {
         return groups.size();
     }
 
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        return 1;
-    }
 
     @Override
     public Object getGroup(int groupPosition) {
@@ -91,8 +85,7 @@ public class TestGroupAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-
+    public View getRealChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildrenHolder itemHolder;
         if (convertView == null) {
             itemHolder = new ChildrenHolder();
@@ -109,18 +102,24 @@ public class TestGroupAdapter extends BaseExpandableListAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selectedGroupId != -1) {
-                    mMembers.get(getGroup(selectedGroupId)).get(position).isSelected = false;
+                    mMembers.get(getGroup(selectedGroupId)).get(selectedChildId).isSelected = false;
                 }
                 data.get(position).isSelected = true;
                 selectedGroupId = groupPosition;
                 selectedChildId = position;
-                ToastUtils.showLongToast(data.get(position).name);
+                //ToastUtils.showLongToast(data.get(position).name);
                 adapter.notifyDataSetChanged();
                 notifyDataSetChanged();
             }
         });
         return convertView;
     }
+
+    @Override
+    public int getRealChildrenCount(int groupPosition) {
+        return 1;
+    }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

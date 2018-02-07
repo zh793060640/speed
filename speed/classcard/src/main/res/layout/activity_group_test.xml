@@ -4,17 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smartRefreshLayout"
+
+    <com.zhanghao.speed.temp.AnimatedExpandableListView
+        android:id="@+id/test_group"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:groupIndicator="@null">
+    </com.zhanghao.speed.temp.AnimatedExpandableListView>
 
-        <ExpandableListView
-            android:id="@+id/test_group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:groupIndicator="@null"></ExpandableListView>
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 package com.zhanghao.speed.temp;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhanghao.core.base.BaseNormalActivity;
 import com.zhanghao.speed.R;
 
@@ -21,30 +21,52 @@ import butterknife.ButterKnife;
 
 public class GroupTestActivity extends BaseNormalActivity {
     @BindView(R.id.test_group)
-    ExpandableListView testGroup;
-    @BindView(R.id.smartRefreshLayout)
-    SmartRefreshLayout smartRefreshLayout;
+    AnimatedExpandableListView testGroup;
     private HashMap<String, List<SectionInfo>> data = new HashMap<>();
     private List<String> group = new ArrayList<>();
-    TestGroupAdapter testGroupAdapter;
+    TestGroupAdapter2 testGroupAdapter;
+    private int sign = -1;
 
     @Override
     protected void initView() {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             group.add("group" + i);
             List<SectionInfo> temp = new ArrayList<>();
 
             for (int i1 = 0; i1 < 8; i1++) {
                 SectionInfo info = new SectionInfo();
-                info.name = "child"+i1;
+                info.name = "child" + i1;
                 temp.add(info);
             }
             data.put("group" + i, temp);
         }
 
-        testGroupAdapter = new TestGroupAdapter(activity, group, data);
+        testGroupAdapter = new TestGroupAdapter2(activity, group, data);
         testGroup.setAdapter(testGroupAdapter);
+        testGroup.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (sign == -1) {
+                    // 展开被选的group  
+                    testGroup.expandGroupWithAnimation(groupPosition);
+                    // 设置被选中的group置于顶端  
+                    testGroup.setSelectedGroup(groupPosition);
+                    sign = groupPosition;
+                } else if (sign == groupPosition) {
+                    testGroup.collapseGroupWithAnimation(sign);
+                    sign = -1;
+                } else {
+                    testGroup.collapseGroupWithAnimation(sign);
+                    // 展开被选的group  
+                    testGroup.expandGroupWithAnimation(groupPosition);
+                    // 设置被选中的group置于顶端  
+                    testGroup.setSelectedGroup(groupPosition);
+                    sign = groupPosition;
+                }
+                return true;
+            }
+        });
     }
 
     @Override

@@ -9,4 +9,5 @@ public class SectionInfo extends BaseBean {
     public String name;
     public int chapterIndex;
     public int sectionIndex;
+    public boolean isSelected;
 }

@@ -12,6 +12,6 @@
         android:numColumns="4"
         android:horizontalSpacing="@dimen/x20"
         android:verticalSpacing="@dimen/x20"
-        android:listSelector="@null"
+        android:listSelector="@android:color/transparent"
         ></com.zhanghao.speed.temp.MyGridView>
 </LinearLayout>
