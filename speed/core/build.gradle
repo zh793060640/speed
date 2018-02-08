@@ -103,6 +103,7 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.7'
 
     compile 'com.airbnb.android:lottie:2.1.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
 
 //添加
