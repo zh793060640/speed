@@ -27,7 +27,6 @@ import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
 import com.zhanghao.core.ui.CommentDialgNew;
 import com.zhanghao.core.ui.CommentDialog;
-import com.zhanghao.core.utils.GalleryFinalUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
@@ -36,6 +35,7 @@ import com.zhanghao.speed.temp.DateCustomeActivity;
 import com.zhanghao.speed.temp.GroupTestActivity;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
 import com.zhanghao.speed.test.DragSortActivity;
+import com.zhanghao.speed.test.GalleryActivity;
 import com.zhanghao.speed.test.StickActivity;
 import com.zhanghao.speed.test.TestAdapter;
 import com.zhanghao.speed.test.TransationActivity;
@@ -126,7 +126,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 int a = postion;
                 switch (a) {
                     case 0:
-                        GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
+                        //GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
+                        startActivity(new Intent(activity, GalleryActivity.class));
                         break;
                     case 1:
                         Intent intent = new Intent(activity, ZbarActivity.class);

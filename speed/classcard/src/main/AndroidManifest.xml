@@ -115,6 +115,7 @@
         <activity android:name=".temp.UserInfoActivity"></activity>
         <activity android:name=".temp.DateCustomeActivity"></activity>
         <activity android:name=".temp.GroupTestActivity"></activity>
+        <activity android:name=".test.GalleryActivity"></activity>
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
