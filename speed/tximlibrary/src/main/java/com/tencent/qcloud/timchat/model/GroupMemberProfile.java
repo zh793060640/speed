@@ -23,6 +23,7 @@ public class GroupMemberProfile implements ProfileSummary,Serializable {
         id = info.getUser();
         quietTime = info.getSilenceSeconds();
         roleType = info.getRole();
+
     }
 
     /**

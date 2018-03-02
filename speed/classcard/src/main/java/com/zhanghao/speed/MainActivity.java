@@ -19,6 +19,7 @@ import com.tencent.qcloud.presentation.event.FriendshipEvent;
 import com.tencent.qcloud.presentation.event.GroupEvent;
 import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
+import com.tencent.qcloud.timchat.ui.BaiduMapActivity;
 import com.tencent.qcloud.timchat.ui.HomeActivity;
 import com.tencent.qcloud.timchat.ui.customview.DialogActivity;
 import com.tencent.qcloud.timchat.utils.PushUtil;
@@ -27,6 +28,7 @@ import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
 import com.zhanghao.core.ui.CommentDialgNew;
 import com.zhanghao.core.ui.CommentDialog;
+import com.zhanghao.core.utils.CompressorUtils;
 import com.zhanghao.core.zbar.ZbarActivity;
 import com.zhanghao.speed.mvp.MainContract;
 import com.zhanghao.speed.mvp.MainModel;
@@ -35,7 +37,6 @@ import com.zhanghao.speed.temp.DateCustomeActivity;
 import com.zhanghao.speed.temp.GroupTestActivity;
 import com.zhanghao.speed.test.CoordinatorLayoutActivity;
 import com.zhanghao.speed.test.DragSortActivity;
-import com.zhanghao.speed.test.GalleryActivity;
 import com.zhanghao.speed.test.StickActivity;
 import com.zhanghao.speed.test.TestAdapter;
 import com.zhanghao.speed.test.TransationActivity;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         super.onCreate(savedInstanceState);
         InitBusiness.start(getApplicationContext(), TIMLogLevel.DEBUG.ordinal());
         initTIMUserConfig();
-       // intervelHX();
+         intervelHX();
     }
 
     @Override
@@ -126,8 +127,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 int a = postion;
                 switch (a) {
                     case 0:
-                        //GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
-                        startActivity(new Intent(activity, GalleryActivity.class));
+                       // GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
+                         startActivity(new Intent(activity, BaiduMapActivity.class));
                         break;
                     case 1:
                         Intent intent = new Intent(activity, ZbarActivity.class);
@@ -168,10 +169,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     }
 
 
-
-    public void loginTX(){
+    public void loginTX() {
 
     }
+
     @Override
     protected void initData() {
         mPresenter.getInfo();
@@ -193,7 +194,22 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     @Override
     public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
         if (resultList != null) {
-            mPresenter.uploadPhoto(resultList.get(0).getPhotoPath());
+            // mPresenter.uploadPhoto(resultList.get(0).getPhotoPath());
+            final Long time = System.currentTimeMillis();
+            List<String> data = new ArrayList<>();
+            for (PhotoInfo info : resultList) {
+                data.add(info.getPhotoPath());
+            }
+
+            CompressorUtils.CompressorImages(data, new CompressorUtils.CompressorImagesListener() {
+                @Override
+                public void result(List<String> data) {
+                    for (String s : data) {
+                        Log.d(TAG, "result: " + s);
+                        Log.d(TAG, "time: " + (System.currentTimeMillis() - time));
+                    }
+                }
+            });
         }
     }
 

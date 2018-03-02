@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.huawei.android.pushagent.PushManager;
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.qcloud.presentation.business.LoginBusiness;
 import com.tencent.qcloud.timchat.R;
@@ -56,7 +55,7 @@ public class DialogActivity extends Activity implements View.OnClickListener {
                     if (deviceMan.equals("Xiaomi") && shouldMiInit()) {
                         MiPushClient.registerPush(getApplicationContext(), "2882303761517480335", "5411748055335");
                     } else if (deviceMan.equals("HUAWEI")) {
-                        PushManager.requestToken(getApplicationContext());
+                     //   PushManager.requestToken(getApplicationContext());
                     }
                     finish();
                 }

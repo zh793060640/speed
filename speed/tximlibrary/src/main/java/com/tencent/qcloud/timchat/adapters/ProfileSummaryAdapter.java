@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tencent.qcloud.timchat.R;
 import com.tencent.qcloud.timchat.model.ProfileSummary;
 import com.tencent.qcloud.ui.CircleImageView;
@@ -51,7 +52,9 @@ public class ProfileSummaryAdapter extends ArrayAdapter<ProfileSummary> {
             view.setTag(viewHolder);
         }
         ProfileSummary data = getItem(position);
-        viewHolder.avatar.setImageResource(data.getAvatarRes());
+      //  viewHolder.avatar.setImageResource(data.getAvatarRes());
+        Glide.with(getContext()).load(data.getAvatarUrl()).into(viewHolder.avatar);
+       // viewHolder.avatar.setImageResource(data.getAvatarRes());
         viewHolder.name.setText(data.getName());
         return view;
     }

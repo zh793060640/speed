@@ -9,6 +9,25 @@
     <uses-permission android:name="oicq.wlogin_sdk.permission.WloginProvider.WRITE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
     <!-- mi push -->
     <permission
         android:name="com.tencent.qcloud.timchat.permission.MIPUSH_RECEIVE"
@@ -27,6 +46,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="gc7dvOyAPWVA8Pc67RFTfu9klwNXM6xa" />
 
  <meta-data android:name="com.tencent.rdm.uuid" android:value="a2af72ec-a731-46eb-8501-0477e34702f3" />
         <activity android:name=".ui.SplashActivity"
@@ -47,6 +70,8 @@
         <activity android:name=".ui.VideoActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.CreateGroupActivity" />
+        <activity android:name=".ui.BaiduMapActivity" />
+
         <activity android:name=".ui.TCVideoRecordActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.TCVideoPreviewActivity"
@@ -54,6 +79,11 @@
         <activity
             android:name=".ui.GroupProfileActivity"
             android:launchMode="singleTask" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <!-- 消息收发service -->
         <service

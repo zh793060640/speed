@@ -56,7 +56,7 @@ public class GroupProfile implements ProfileSummary {
      */
     @Override
     public String getAvatarUrl() {
-        return null;
+        return profile.getFaceUrl();
     }
 
     /**
