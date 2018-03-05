@@ -51,7 +51,8 @@ public abstract class BaseNormalActivity  extends AppCompatActivity implements E
         mDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
 
-        mDialog.setCancelable(false);
+        mDialog.setCancelable(true);
+
         //理论上应该放在launcher activity,放在基类中所有集成此库的app都可以避免此问题
         if (!isTaskRoot()) {
             String action = extraIntent.getAction();

@@ -17,4 +17,8 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">#ff25adff</item>
     </style>
+    <declare-styleable name="MNViderPlayer">
+        <!--第一次进入时默认播放还是默认不播放-->
+        <attr name="mnFirstNeedPlay" format="boolean"/>
+    </declare-styleable>
 </resources>

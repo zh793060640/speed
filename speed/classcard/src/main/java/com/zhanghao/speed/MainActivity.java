@@ -19,11 +19,11 @@ import com.tencent.qcloud.presentation.event.FriendshipEvent;
 import com.tencent.qcloud.presentation.event.GroupEvent;
 import com.tencent.qcloud.presentation.event.MessageEvent;
 import com.tencent.qcloud.presentation.event.RefreshEvent;
-import com.tencent.qcloud.timchat.ui.BaiduMapActivity;
 import com.tencent.qcloud.timchat.ui.HomeActivity;
 import com.tencent.qcloud.timchat.ui.customview.DialogActivity;
 import com.tencent.qcloud.timchat.utils.PushUtil;
 import com.tencent.qcloud.ui.NotifyDialog;
+import com.zhanghao.core.ShowVideoActivity;
 import com.zhanghao.core.base.BaseActivity;
 import com.zhanghao.core.ui.BaseRefreshView;
 import com.zhanghao.core.ui.CommentDialgNew;
@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         super.onCreate(savedInstanceState);
         InitBusiness.start(getApplicationContext(), TIMLogLevel.DEBUG.ordinal());
         initTIMUserConfig();
-         intervelHX();
+       //  intervelHX();
     }
 
     @Override
@@ -128,7 +128,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 switch (a) {
                     case 0:
                        // GalleryFinalUtils.openGalleryMuti(9, MainActivity.this);
-                         startActivity(new Intent(activity, BaiduMapActivity.class));
+                        Intent intent1 = new Intent(activity, ShowVideoActivity.class);
+                        intent1.putExtra("url", "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4");
+                         startActivity(intent1);
+                       // startActivity(new Intent(activity, VideoActivity.class));
                         break;
                     case 1:
                         Intent intent = new Intent(activity, ZbarActivity.class);

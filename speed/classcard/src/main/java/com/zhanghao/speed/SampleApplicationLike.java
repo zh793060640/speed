@@ -31,8 +31,10 @@ import com.tencent.qcloud.timchat.utils.Foreground;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.zhanghao.core.VideoCache;
 import com.zhanghao.core.api.RetrofitClient;
 import com.zhanghao.core.utils.AppManager;
+import com.zhanghao.core.utils.FileUtils;
 import com.zhanghao.core.utils.GlideImageLoader;
 import com.zhanghao.core.utils.Utils;
 import com.zhanghao.speed.test.TestImageLoader;
@@ -80,9 +82,10 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         Bugly.init(getApplication(), "2fd77717a9", true);//初始化bugly
         AppManager.I().init(getApplication());//初始化activity管理类
+        FileUtils.init();
         Utils.init(getApplication());//初始化一个通用的utils
         RetrofitClient.init(BuildConfig.SERVER_ADDRESS);//初始化网络请求库
-
+        VideoCache.init();
         Stetho.initialize(
                 Stetho.newInitializerBuilder(getApplication())
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(getApplication()))

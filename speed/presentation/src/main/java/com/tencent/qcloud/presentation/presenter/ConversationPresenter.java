@@ -93,7 +93,6 @@ public class ConversationPresenter implements Observer {
                     if (timMessages.size() > 0) {
                         view.updateMessage(timMessages.get(0));
                     }
-
                 }
             });
 

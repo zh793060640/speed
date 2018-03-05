@@ -104,6 +104,9 @@ dependencies {
 
     compile 'com.airbnb.android:lottie:2.1.0'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    compile 'com.danikula:videocache:2.7.0' //视频缓存
+    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
 }
 
 //添加
