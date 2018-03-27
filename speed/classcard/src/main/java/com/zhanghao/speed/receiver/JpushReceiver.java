@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zhanghao.core.utils.EmptyUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,35 +54,30 @@ public class JpushReceiver extends BroadcastReceiver {
                 Log.d(TAG, "[JpushReceiver] 用户点击打开了通知");
                 String extraMessage = bundle.getString(JPushInterface.EXTRA_EXTRA);
                 JSONObject json = new JSONObject(extraMessage);
-                JSONObject data = json.optJSONObject("data");
-                Intent toIntent = new Intent();
-                if (json.has("type")) {
-
-                    int type = json.optInt("type", 0);
+                JSONObject params = json.getJSONObject("params");
 
 
+                if (json.has("activity")) {
+                    String action = json.getString("action");
+                    if (EmptyUtils.isEmpty(action)) {
+                        return;
+                    }
+                    //打开自定义的Activity
+                    Intent i = new Intent();
+                    i.setClassName(context, action);
+
+                    Iterator<String> it = params.keys();
+
+                    while (it.hasNext()) {
+                        String myKey = it.next();
+                        i.putExtra(myKey, params.optString(myKey));
+                    }
+                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(i);
+                } else {
+                    startAPP(context.getPackageName(), context);
                 }
-                startAPP(context.getPackageName(),context);
-
-//                if (json.has("action")) {
-//                    String action = json.getString("action");
-//                    if (CheckDataUtils.isEmpty(action)) {
-//                        return;
-//                    }
-//                    //打开自定义的Activity
-//                    Intent i = new Intent();
-//                    i.setDeviceName(context, action);
-//
-//                    Iterator<String> it = json.keys();
-//
-//                    while (it.hasNext()) {
-//                        String myKey = it.next();
-//                        i.putExtra(myKey, json.optString(myKey));
-//                    }
-//                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    context.startActivity(i);
-//                }
 
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
@@ -139,12 +136,12 @@ public class JpushReceiver extends BroadcastReceiver {
     }
 
 
-    public void startAPP(String appPackageName,Context context){
-        try{
+    public void startAPP(String appPackageName, Context context) {
+        try {
             Intent intent = context.getPackageManager().getLaunchIntentForPackage(appPackageName);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
